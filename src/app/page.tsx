@@ -19,7 +19,6 @@ export default function Home() {
       <Videocard />
       <Testimonials/>
       <Blog/>
-      <Footer />
     </main>
     </>
   );
