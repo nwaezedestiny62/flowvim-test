@@ -1,10 +1,9 @@
-export type WeeMen = {
-    label: string;
-    href: string;
+export interface BreadcrumbProps {
+    pageName: string,
+    pageDescription?: string;
 }
 
-export type Weeman = {
-    label: string;
+export interface BreadcrumbLinks {
+    text: string;
     href: string;
-    submenu?: WeeMen[];
 }
