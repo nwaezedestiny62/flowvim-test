@@ -9,8 +9,8 @@ export async function POST(request: NextRequest) {
 
     const { fullName, email, phone, experienceYears, vacancy, candidateId, score, status } = data;
 
-    await resend.emails.send({
-      from: 'Careers <careers@flowvim.com>',   // Change to your verified domain later
+    const result = await resend.emails.send({
+      from: 'Flowvim Careers <onboarding@resend.dev>',   // ← THIS WORKS FOR TESTING
       to: 'nwaezedestiny62@gmail.com',
       subject: `New Application - ${vacancy} - ${candidateId}`,
       html: `
@@ -24,13 +24,18 @@ export async function POST(request: NextRequest) {
         <p><strong>Score:</strong> ${score}%</p>
         <p><strong>Status:</strong> ${status.toUpperCase()}</p>
         <hr>
-        <p>Application received on ${new Date().toLocaleString()}</p>
+        <p><strong>Time:</strong> ${new Date().toLocaleString()}</p>
       `,
     });
 
-    return NextResponse.json({ success: true });
-  } catch (error) {
-    console.error('Resend error:', error);
-    return NextResponse.json({ success: false, error: 'Failed to send email' }, { status: 500 });
+    console.log("Resend API Response:", result);   // ← For debugging
+
+    return NextResponse.json({ success: true, resendId: result.data?.id });
+  } catch (error: any) {
+    console.error('Resend Full Error:', error);
+    return NextResponse.json({ 
+      success: false, 
+      error: error.message 
+    }, { status: 500 });
   }
 }
