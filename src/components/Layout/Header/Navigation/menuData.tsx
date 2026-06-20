@@ -1,4 +1,4 @@
-// src/data/headerData.ts
+// src/components/Layout/Header/Navigation/menuData.tsx
 import { HeaderItem } from "@/type/menu";
 
 export const headerData: HeaderItem[] = [
@@ -25,8 +25,12 @@ export const headerData: HeaderItem[] = [
     href: "/blog",
     submenu: [
       { label: "Blog List", href: "/blog" },
-      // Blog Details removed (it's dynamic anyway)
     ],
+  },
+  // ✅ NEW: Add Vacancies here
+  { 
+    label: "Careers", 
+    href: "/careers" 
   },
   { label: "Contact Us", href: "/contact" },
 ];
