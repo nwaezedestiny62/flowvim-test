@@ -9,32 +9,46 @@ interface AssessmentProps {
   applicantData: any;
 }
 
-const Assessment: React.FC<AssessmentProps> = ({ experienceYears, onComplete, applicantData }) => {
+const Assessment: React.FC<AssessmentProps> = ({ experienceYears, onComplete }) => {
   const [questions, setQuestions] = useState<Question[]>([]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [answers, setAnswers] = useState<Record<number, number>>({});
   const [submitted, setSubmitted] = useState(false);
 
   useEffect(() => {
+    // Get 5 relevant questions
     let filtered = [...questionBank];
 
-    if (experienceYears <= 2) {
-      filtered = filtered.filter(q => q.difficulty === 'Easy').slice(0, 35);
-    } else if (experienceYears <= 4) {
-      const easy = filtered.filter(q => q.difficulty === 'Easy').slice(0, 20);
-      const inter = filtered.filter(q => q.difficulty === 'Intermediate').slice(0, 15);
-      filtered = [...easy, ...inter];
-    } else {
-      filtered = filtered.filter(q => q.difficulty === 'Advanced').slice(0, 25);
+    // Optional: Adjust based on experience
+    if (experienceYears <= 3) {
+      filtered = filtered.filter(q => q.difficulty !== 'Advanced');
     }
 
-    // Shuffle
-    for (let i = filtered.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [filtered[i], filtered[j]] = [filtered[j], filtered[i]];
-    }
+    // Shuffle questions
+    filtered.sort(() => Math.random() - 0.5);
 
-    setQuestions(filtered.slice(0, 10)); // 10 questions per test
+    // Take only 5 questions
+    const selectedQuestions = filtered.slice(0, 7).map(q => {
+      // Shuffle options and track correct answer
+      const shuffledOptions = [...q.options];
+      const correctText = shuffledOptions[q.correctAnswer];
+      
+      // Shuffle array
+      for (let i = shuffledOptions.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [shuffledOptions[i], shuffledOptions[j]] = [shuffledOptions[j], shuffledOptions[i]];
+      }
+
+      const newCorrectIndex = shuffledOptions.indexOf(correctText);
+
+      return {
+        ...q,
+        options: shuffledOptions,
+        correctAnswer: newCorrectIndex
+      };
+    });
+
+    setQuestions(selectedQuestions);
   }, [experienceYears]);
 
   const handleAnswer = (questionId: number, optionIndex: number) => {
@@ -60,7 +74,7 @@ const Assessment: React.FC<AssessmentProps> = ({ experienceYears, onComplete, ap
     const finalScore = calculateScore();
     const year = new Date().getFullYear();
     const randomNum = Math.floor(1000 + Math.random() * 9000);
-    const candidateId = `FLV-TM-${year}-${randomNum}`;
+    const candidateId = `FLV-RT-${year}-${randomNum}`; // RT = Road Transport
 
     onComplete(finalScore, candidateId);
   };
@@ -72,7 +86,7 @@ const Assessment: React.FC<AssessmentProps> = ({ experienceYears, onComplete, ap
   return (
     <div className="max-w-3xl mx-auto">
       <div className="text-center mb-10">
-        <h2 className="text-4xl font-unbounded">Terminal Manager Assessment</h2>
+        <h2 className="text-4xl font-unbounded">Road Transport Terminal Assessment</h2>
         <p className="text-gray-400 mt-3">Question {currentIndex + 1} of {questions.length}</p>
       </div>
 
@@ -104,7 +118,7 @@ const Assessment: React.FC<AssessmentProps> = ({ experienceYears, onComplete, ap
           <button
             onClick={() => setCurrentIndex(prev => Math.max(0, prev - 1))}
             disabled={currentIndex === 0}
-            className="px-8 py-4 disabled:opacity-50"
+            className="px-8 py-4 disabled:opacity-50 text-gray-400 hover:text-white"
           >
             Previous
           </button>

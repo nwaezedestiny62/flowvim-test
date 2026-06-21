@@ -145,45 +145,21 @@ export const team = [
   },
   {
     id: 2,
-    name: "Dr. Aisha Bello",
-    post: "Head of HR Solutions",
+    name: "Samuel Ajala",
+    post: "Lead Strategy Consultant",
     image: "/images/team/team-2.webp",
   },
   {
     id: 3,
-    name: "Emmanuel Okonkwo",
+    name: "Blessing Okozie",
     post: "Lead Strategy Consultant",
     image: "/images/team/team-3.webp",
   },
   {
     id: 4,
-    name: "Fatima Adebayo",
-    post: "Senior Performance Coach",
-    image: "/images/team/team-4.webp",
-  },
-  {
-    id: 5,
-    name: "Chinedu Eze",
-    post: "Operations & Process Expert",
-    image: "/images/team/team-5.webp",
-  },
-  {
-    id: 6,
-    name: "Oluwaseun Adeyemi",
-    post: "Change Management Specialist",
-    image: "/images/team/team-6.webp",
-  },
-  {
-    id: 7,
-    name: "Ngozi Okoro",
-    post: "Leadership Development Consultant",
-    image: "/images/team/team-7.webp",
-  },
-  {
-    id: 8,
-    name: "Tunde Babalola",
-    post: "Business Analyst",
-    image: "/images/team/team-8.webp",
+    name: "Nwaeze Destiny",
+    post: "Lead Developer",
+    image: "/images/team/team-4.jpg",
   },
 ];
 

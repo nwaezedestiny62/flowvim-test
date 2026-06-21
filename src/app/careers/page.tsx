@@ -49,25 +49,27 @@ export default function CareersPage() {
 
   return (
     <div className="min-h-screen bg-[#0d1e20] text-white overflow-hidden">
-      {/* HERO SECTION - Lots of top space */}
-      <div className="pt-32 md:pt-40 lg:pt-48 pb-20 border-b border-white/10 bg-gradient-to-b from-black/70 via-black/40 to-transparent">
-        <div className="container mx-auto px-6 max-w-6xl text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 50 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: "easeOut" }}
-          >
-            <h1 className="text-6xl md:text-7xl lg:text-8xl font-unbounded font-bold tracking-tighter mb-6 bg-gradient-to-r from-white via-zinc-200 to-zinc-400 bg-clip-text text-transparent">
-              Careers at Flowvim
-            </h1>
-            <p className="text-xl md:text-2xl text-gray-400 max-w-3xl mx-auto leading-tight">
-              Join our team and help bridge strategy with execution across Africa.
-            </p>
-          </motion.div>
+      {/* HERO SECTION - Only shown on the list view */}
+      {step === 'list' && (
+        <div className="pt-32 md:pt-40 lg:pt-48 pb-20 border-b border-white/10 bg-gradient-to-b from-black/70 via-black/40 to-transparent">
+          <div className="container mx-auto px-6 max-w-6xl text-center">
+            <motion.div
+              initial={{ opacity: 0, y: 50 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, ease: "easeOut" }}
+            >
+              <h1 className="text-6xl md:text-7xl lg:text-8xl font-unbounded font-bold tracking-tighter mb-6 bg-gradient-to-r from-white via-zinc-200 to-zinc-400 bg-clip-text text-transparent">
+                Careers at Flowvim
+              </h1>
+              <p className="text-xl md:text-2xl text-gray-400 max-w-3xl mx-auto leading-tight">
+                Join our team and help bridge strategy with execution across Africa.
+              </p>
+            </motion.div>
+          </div>
         </div>
-      </div>
+      )}
 
-      <div className="container mx-auto px-6 max-w-6xl py-16">
+      <main data-careers="true" className="container mx-auto px-6 max-w-6xl py-16">
         <AnimatePresence mode="wait">
           {/* Vacancy List Step */}
           {step === 'list' && (
@@ -157,7 +159,7 @@ export default function CareersPage() {
               key="success"
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
-              className="min-h-[70vh] flex items-center"
+              className="min-h-[70vh] flex items-center justify-center"
             >
               <SuccessScreen 
                 candidateId={candidateId} 
@@ -168,7 +170,7 @@ export default function CareersPage() {
             </motion.div>
           )}
         </AnimatePresence>
-      </div>
+      </main>
     </div>
   );
 }

@@ -34,7 +34,7 @@ const Team: React.FC<TeamProps> = ({ limit }) => {
 
         {/* Team Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
-          {displayTeam.map((member) => (
+          {displayTeam.map((member, index) => (
             <div
               key={member.id}
               className="group bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-500 hover:-translate-y-2"
@@ -47,6 +47,8 @@ const Team: React.FC<TeamProps> = ({ limit }) => {
                   width={500}
                   height={600}
                   className="w-full h-[340px] object-cover transition-transform duration-700 group-hover:scale-110"
+                  priority={index === 0}           // ← Important for LCP
+                  loading={index === 0 ? "eager" : "lazy"}  // ← Fix for warning
                 />
 
                 {/* Overlay */}

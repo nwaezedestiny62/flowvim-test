@@ -1,18 +1,18 @@
 @import "tailwindcss";
 
 @theme {
-  --color-prim: #0d1e20;
-  --color-midnight_text: #0c1e21;
-  --color-dark: #26667F;
-  --color-prim-light: #edf0f1;
-
-  --color-dark-blur: #0d1e20e0;
-
-  --color-border: #c9d1d1;
+  --color-prim: #fbbf24;           /* Deep red */
+  --color-prim-dark: #7f1d1d;
+  --color-prim-light: #fee2e2;
+  --color-accent: #fbbf24;         /* Warm yellow for highlights */
+  --color-midnight_text: #4c1d16;
+  --color-dark: #b91c1c;
+  --color-dark-blur: #9f1239e0;
+  --color-border: #fda4af;
 
   /* Colors */
---color-pera-light: #a9b8b8;
---color-pera-dark: #364e52;
+  --color-pera-light: #fecaca;
+  --color-pera-dark: #881337;
 
 /* Other */
 --rotate-y-360: 360px;
@@ -92,12 +92,13 @@
 }
 
 @layer components {
-  body {
-    @apply text-base overflow-x-hidden font-normal;
-    -webkit-text-size-adjust: 100%;
-    font-family: var(--font-poppins);
-    scroll-behavior: smooth;
-  }
+body {
+  @apply text-base overflow-x-hidden font-normal;
+  -webkit-text-size-adjust: 100%;
+  font-family: var(--font-poppins);
+  scroll-behavior: smooth;
+  background-color: #9f1239; /* fallback red */
+}
 
   textarea,
 input[type="text"],
@@ -132,8 +133,10 @@ h5 {
 /* custom css */
 
 .prim-prident {
-  background: linear-gradient(-45deg, rgba(30,138,138,0.3) 0% rgba(30,138,138,0) 50% rgba(30,138,138,0.3) 100%);
+  background: linear-gradient(-45deg, rgba(159,18,57,0.3) 0%, rgba(159,18,57,0) 50%, rgba(159,18,57,0.3) 100%);
 }
+
+
 
 .flip-vertical {
   animation: flip-vertical 0.4s cubic-bezier(0.455, 0.030 , 0.515, 0.995) both;
@@ -190,19 +193,18 @@ h5 {
   content: '';
   position: absolute;
   inset: 0;
-  background: rgba(33, 62, 65, 0.65);
+  background: rgba(159, 18, 57, 0.65);
   z-index: 2;
 }
-
 .video-hero::after {
   content: '';
   position: absolute;
   inset: 0;
   background: linear-gradient(
     to bottom,
-    rgba(13,30,32,0.4) 0%,
-    rgba(13,30,32,0.75) 50%,
-    rgba(13,30,32,0.95) 100%
+    rgba(127,29,29,0.4) 0%,
+    rgba(159,18,57,0.75) 50%,
+    rgba(159,18,57,0.95) 100%
   );
   z-index: 3;
 }
@@ -229,18 +231,18 @@ h5 {
 }
 
 .yt-card {
-  background: rgba(13, 30, 32, 0.95);
+  background: rgba(127, 29, 29, 0.95);
   border-radius: 20px;
   overflow: hidden;
   transition: all 0.4s cubic-bezier(0.4, 0.0, 0.2, 1);
-  border: 1px solid rgba(201, 209, 209, 0.2);
+  border: 1px solid rgba(251, 191, 36, 0.2);
   backdrop-filter: blur(12px);
 }
 
 .yt-card:hover {
   transform: translateY(-16px);
-  box-shadow: 0 30px 60px -15px rgb(13 30 32 / 0.7);
-  border-color: rgba(38, 102, 127, 0.5);
+  box-shadow: 0 30px 60px -15px rgb(159 18 57 / 0.7);
+  border-color: rgba(251, 191, 36, 0.5);
 }
 
 .yt-thumbnail {
@@ -264,9 +266,8 @@ h5 {
 }
 
 .yt-card:hover .play-overlay {
-  background: rgba(38, 102, 127, 0.8);
+  background: rgba(159, 18, 57, 0.8);
 }
-
 .play-btn {
   width: 78px;
   height: 78px;
@@ -394,31 +395,33 @@ h5 {
 }
 /* ================= HERO ================= */
 
+/* ================= HERO ================= */
+
 .hero {
   position: relative;
   overflow: hidden;
 }
 
-/* Dark overlay */
+/* Dark overlay - REDUCED SIGNIFICANTLY */
 .hero::before {
   content: "";
   position: absolute;
   inset: 0;
-  background: rgba(0, 0, 0, 0.4);
+background: rgba(159, 18, 57, 0.25);  /* Was 0.55 */
   z-index: 1;
   pointer-events: none;
 }
 
-/* Gradient overlay */
+/* Gradient overlay - SOFTENED */
 .hero::after {
   content: "";
   position: absolute;
   inset: 0;
   background: linear-gradient(
     90deg,
-    rgba(13, 30, 32, 1) 0%,
-    rgba(136, 145, 109, 0) 50%,
-    rgba(13, 30, 32, 1) 100%
+    rgba(127,29,29,0.65) 0%,     /* Reduced from 1 */
+    rgba(159,18,57,0) 45%,
+    rgba(127,29,29,0.65) 100%     /* Reduced from 1 */
   );
   z-index: 2;
   pointer-events: none;
@@ -609,3 +612,73 @@ h5 {
   }
 }
 
+/* ====================== SWIPER CUSTOMIZATION - RED THEME ====================== */
+
+/* Navigation Arrows */
+/* ====================== SWIPER ARROWS - FULLY TRANSPARENT ====================== */
+
+.swiper-button-prev,
+.swiper-button-next {
+  color: #9f1239 !important;           /* Bright yellow arrows */
+  background-color: transparent !important;
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+  border: 3px solid #9f1239;           /* Yellow border for visibility */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.swiper-button-prev:hover,
+.swiper-button-next:hover {
+  color: #fff !important;
+  border-color: #fff;
+  background-color: rgba(159, 18, 57, 0.6) !important;   /* Very light red tint on hover only */
+  transform: scale(1.12);
+}
+
+.swiper-button-prev::after,
+.swiper-button-next::after {
+  font-size: 32px !important;
+  font-weight: bold;
+}
+
+/* Pagination Dots */
+.swiper-pagination {
+  bottom: 20px !important;
+}
+
+.swiper-pagination-bullet {
+  width: 12px;
+  height: 12px;
+  background: #fecaca !important;        /* Light red */
+  opacity: 0.7;
+  border: 2px solid #9f1239;
+  transition: all 0.3s ease;
+}
+
+.swiper-pagination-bullet-active {
+  background: #9f1239 !important;        /* Deep red active dot */
+  width: 28px;
+  border-radius: 9999px;
+  border: 2px solid #fbbf24;             /* Yellow accent on active */
+}
+
+/* Optional: Make dots bigger on mobile */
+@media (max-width: 768px) {
+  .swiper-pagination-bullet {
+    width: 10px;
+    height: 10px;
+  }
+  
+  .swiper-pagination-bullet-active {
+    width: 24px;
+  }
+}
+/* Hide footer on all careers pages */
+body:has([data-careers="true"]) ~ footer,
+footer:has(~ [data-careers="true"]) {
+  display: none !important;
+}

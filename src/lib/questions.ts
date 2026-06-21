@@ -8,344 +8,524 @@ export type Question = {
 };
 
 export const questionBank: Question[] = [
-  {
-    id: 1,
-    text: "What does KPI stand for in terminal operations?",
-    options: ["Key Performance Indicator", "Key Process Improvement", "Knowledge Performance Index", "Key Planning Initiative"],
-    correctAnswer: 0,
-    difficulty: "Easy",
-    score: 2
-  },
-  {
-    id: 2,
-    text: "What is the primary responsibility of a Terminal Manager?",
-    options: ["Overseeing daily terminal operations and ensuring efficiency", "Managing only financial accounts", "Handling customer complaints exclusively", "Marketing the terminal services"],
-    correctAnswer: 0,
-    difficulty: "Easy",
-    score: 2
-  },
-  {
-    id: 3,
-    text: "Which of the following is a key international safety code for port terminals?",
-    options: ["ISPS Code", "ISO 9001", "GDPR", "SA8000"],
-    correctAnswer: 0,
-    difficulty: "Easy",
-    score: 2
-  },
-  {
-    id: 4,
-    text: "What does ETA stand for?",
-    options: ["Estimated Time of Arrival", "Expected Terminal Activity", "Early Transport Approval", "Estimated Terminal Assessment"],
-    correctAnswer: 0,
-    difficulty: "Easy",
-    score: 1
-  },
-  {
-    id: 5,
-    text: "What is the main purpose of a Bill of Lading?",
-    options: ["Proof of contract for carriage of goods", "Internal payroll document", "Marketing material", "Vehicle registration"],
-    correctAnswer: 0,
-    difficulty: "Easy",
-    score: 2
-  },
-  {
-    id: 6,
-    text: "Which document is critical for customs clearance of imported goods in Nigeria?",
-    options: ["Form M", "Packing List only", "Staff ID", "Company Memo"],
-    correctAnswer: 0,
-    difficulty: "Easy",
-    score: 2
-  },
-  {
-    id: 7,
-    text: "What does 'Demurrage' refer to in terminal operations?",
-    options: ["Charges for exceeding free storage time", "Employee bonus", "Fuel cost", "Security fee"],
-    correctAnswer: 0,
-    difficulty: "Easy",
-    score: 2
-  },
-  {
-    id: 8,
-    text: "The main goal of terminal safety management is to:",
-    options: ["Prevent accidents and ensure compliance", "Increase cargo speed only", "Reduce staff numbers", "Improve marketing"],
-    correctAnswer: 0,
-    difficulty: "Easy",
-    score: 2
-  },
-  {
-    id: 9,
-    text: "What is the function of a Reefer Container?",
-    options: ["Temperature-controlled cargo", "Dry general cargo", "Heavy machinery", "Vehicle transport"],
-    correctAnswer: 0,
-    difficulty: "Easy",
-    score: 2
-  },
-  {
-    id: 10,
-    text: "Who is responsible for overall terminal performance and leadership?",
-    options: ["Terminal Manager", "Security Officer", "Cleaner", "Marketing Executive"],
-    correctAnswer: 0,
-    difficulty: "Easy",
-    score: 1
-  },
-  {
-    id: 11,
-    text: "What does TEU stand for?",
-    options: ["Twenty-foot Equivalent Unit", "Terminal Efficiency Unit", "Transport Entry Unit", "Total Export Unit"],
-    correctAnswer: 0,
-    difficulty: "Easy",
-    score: 2
-  },
-  {
-    id: 12,
-    text: "What is the purpose of a Terminal Operating System (TOS)?",
-    options: ["To manage operations, cargo, and resources efficiently", "Only for payroll", "Only for marketing", "Only for cleaning schedules"],
-    correctAnswer: 0,
-    difficulty: "Easy",
-    score: 2
-  },
-  {
-    id: 13,
-    text: "What does IMO stand for?",
-    options: ["International Maritime Organization", "Internal Management Office", "International Marketing Office", "Integrated Maritime Operations"],
-    correctAnswer: 0,
-    difficulty: "Easy",
-    score: 2
-  },
-  {
-    id: 14,
-    text: "A 'Manifest' is primarily used for:",
-    options: ["Listing cargo details on a vessel", "Staff attendance", "Marketing campaign", "Equipment maintenance"],
-    correctAnswer: 0,
-    difficulty: "Easy",
-    score: 2
-  },
-  {
-    id: 15,
-    text: "What is the standard unit for measuring container ship capacity?",
-    options: ["TEU", "Tonnage", "Square meters", "Litres"],
-    correctAnswer: 0,
-    difficulty: "Easy",
-    score: 2
-  },
-  {
-    id: 16,
-    text: "Which of these is NOT a common type of cargo handled at terminals?",
-    options: ["Livestock", "General cargo", "Bulk cargo", "Containerized cargo"],
-    correctAnswer: 0,
-    difficulty: "Easy",
-    score: 1
-  },
-  {
-    id: 17,
-    text: "What is the role of a Stevedore?",
-    options: ["Loading and unloading of cargo", "Customs clearing agent", "Vessel captain", "Terminal accountant"],
-    correctAnswer: 0,
-    difficulty: "Easy",
-    score: 2
-  },
-  {
-    id: 18,
-    text: "What does 'Laytime' refer to?",
-    options: ["Time allowed for loading/unloading", "Staff break time", "Vessel berthing time", "Maintenance period"],
-    correctAnswer: 0,
-    difficulty: "Easy",
-    score: 2
-  },
-  {
-    id: 19,
-    text: "Which organization regulates maritime security internationally?",
-    options: ["International Maritime Organization (IMO)", "Nigerian Police Force", "Central Bank of Nigeria", "SON"],
-    correctAnswer: 0,
-    difficulty: "Easy",
-    score: 2
-  },
-  {
-    id: 20,
-    text: "What is the purpose of a Container Yard (CY)?",
-    options: ["Storage of containers", "Staff quarters", "Fuel depot", "Administrative offices"],
-    correctAnswer: 0,
-    difficulty: "Easy",
-    score: 2
-  },
-  // Intermediate Questions (21-55)
-  {
-    id: 21,
-    text: "Which regulation governs the safe handling of dangerous goods at sea?",
-    options: ["IMDG Code", "ISPS Code", "SOLAS", "MARPOL"],
-    correctAnswer: 0,
-    difficulty: "Intermediate",
-    score: 3
-  },
-  {
-    id: 22,
-    text: "What is the significance of Berth Occupancy Ratio?",
-    options: ["Measures how efficiently berths are utilized", "Measures staff productivity", "Measures fuel consumption", "Measures marketing performance"],
-    correctAnswer: 0,
-    difficulty: "Intermediate",
-    score: 3
-  },
-  {
-    id: 23,
-    text: "What does 'Dwell Time' measure in container terminals?",
-    options: ["Time a container stays in the terminal", "Vessel berthing duration", "Staff working hours", "Equipment idle time"],
-    correctAnswer: 0,
-    difficulty: "Intermediate",
-    score: 3
-  },
-  {
-    id: 24,
-    text: "Which document is used for the release of cargo to the consignee?",
-    options: ["Delivery Order", "Bill of Lading", "Invoice", "Packing List"],
-    correctAnswer: 0,
-    difficulty: "Intermediate",
-    score: 3
-  },
-  {
-    id: 25,
-    text: "What is the main objective of Yard Management?",
-    options: ["Optimize space utilization and reduce congestion", "Only marketing", "Staff training", "Financial auditing"],
-    correctAnswer: 0,
-    difficulty: "Intermediate",
-    score: 3
-  },
-  {
-    id: 26,
-    text: "What does SOLAS primarily address?",
-    options: ["Safety of Life at Sea", "Cargo handling speed", "Marketing strategies", "Financial reporting"],
-    correctAnswer: 0,
-    difficulty: "Intermediate",
-    score: 3
-  },
-  {
-    id: 27,
-    text: "What is the purpose of the ISPS Code?",
-    options: ["Enhance maritime security", "Improve cargo speed", "Reduce costs", "Increase staff numbers"],
-    correctAnswer: 0,
-    difficulty: "Intermediate",
-    score: 3
-  },
-  {
-    id: 28,
-    text: "Which of these is a key performance metric for terminal productivity?",
-    options: ["Moves per hour (crane productivity)", "Number of employees", "Office electricity bill", "Marketing budget"],
-    correctAnswer: 0,
-    difficulty: "Intermediate",
-    score: 3
-  },
-  {
-    id: 29,
-    text: "What is 'Stripping' in container operations?",
-    options: ["Unloading cargo from a container", "Loading cargo", "Repairing containers", "Painting containers"],
-    correctAnswer: 0,
-    difficulty: "Intermediate",
-    score: 3
-  },
-  {
-    id: 30,
-    text: "What is the role of a Shipping Agent?",
-    options: ["Represent the vessel owner and handle documentation", "Operate cranes", "Clean the terminal", "Market services"],
-    correctAnswer: 0,
-    difficulty: "Intermediate",
-    score: 3
-  },
-  // ... (questions 31-55 continue with similar quality)
-  {
-    id: 55,
-    text: "What is the impact of poor vessel turnaround time on terminal operations?",
-    options: ["Increases costs and reduces competitiveness", "Improves efficiency", "Has no impact", "Only affects marketing"],
-    correctAnswer: 0,
-    difficulty: "Intermediate",
-    score: 3
-  },
-  // Advanced Questions (56-100)
-  {
-    id: 56,
-    text: "As a Terminal Manager, how would you handle a major operational disruption such as equipment failure during peak hours?",
-    options: ["Activate contingency plan, communicate with stakeholders, and minimize downtime", "Ignore and wait for it to resolve", "Blame the maintenance team publicly", "Close the terminal"],
-    correctAnswer: 0,
-    difficulty: "Advanced",
-    score: 5
-  },
-  {
-    id: 57,
-    text: "What strategy would you implement to improve terminal throughput by 20% within 6 months?",
-    options: ["Process optimization, staff training, and equipment upgrade", "Reduce staff numbers", "Increase prices", "Reduce working hours"],
-    correctAnswer: 0,
-    difficulty: "Advanced",
-    score: 5
-  },
-  {
-    id: 58,
-    text: "How do you ensure compliance with both local (NPA) and international maritime regulations?",
-    options: ["Regular audits, staff training, and documented procedures", "Only pay fines when caught", "Ignore local rules", "Outsource everything"],
-    correctAnswer: 0,
-    difficulty: "Advanced",
-    score: 5
-  },
-  {
-    id: 59,
-    text: "What is the best approach to managing labour disputes at the terminal?",
-    options: ["Proactive engagement, fair policies, and timely resolution", "Ignore complaints", "Fire all agitators", "Reduce salaries"],
-    correctAnswer: 0,
-    difficulty: "Advanced",
-    score: 5
-  },
-  {
-    id: 60,
-    text: "How would you measure and improve customer satisfaction at the terminal?",
-    options: ["Regular surveys, response time tracking, and service level agreements", "Only focus on revenue", "Ignore complaints", "Reduce charges"],
-    correctAnswer: 0,
-    difficulty: "Advanced",
-    score: 5
-  },
-  {
-    id: 61,
-    text: "What is the importance of digital transformation in modern terminal management?",
-    options: ["Improves efficiency, transparency, and competitiveness", "It is unnecessary", "Only for marketing", "Increases costs only"],
-    correctAnswer: 0,
-    difficulty: "Advanced",
-    score: 5
-  },
-  {
-    id: 62,
-    text: "How do you manage environmental sustainability in terminal operations?",
-    options: ["Implement green policies, waste management, and emission controls", "Ignore environmental rules", "Focus only on profit", "Outsource responsibility"],
-    correctAnswer: 0,
-    difficulty: "Advanced",
-    score: 5
-  },
-  {
-    id: 63,
-    text: "What risk management strategies should a Terminal Manager implement?",
-    options: ["Identify, assess, mitigate, and monitor risks continuously", "Only buy insurance", "Ignore risks", "Delegate to junior staff"],
-    correctAnswer: 0,
-    difficulty: "Advanced",
-    score: 5
-  },
-  {
-    id: 64,
-    text: "How would you optimize berth allocation for multiple vessels?",
-    options: ["Use TOS for dynamic scheduling based on vessel priority and cargo type", "First come first serve only", "Random allocation", "Ignore vessel size"],
-    correctAnswer: 0,
-    difficulty: "Advanced",
-    score: 5
-  },
-  {
-    id: 65,
-    text: "What is the best way to handle a security breach at the terminal?",
-    options: ["Activate incident response plan, notify authorities, and conduct investigation", "Hide the incident", "Blame security company", "Close terminal indefinitely"],
-    correctAnswer: 0,
-    difficulty: "Advanced",
-    score: 5
-  },
-  // Questions 66-100 continue with the same standard (full set provided below in spirit)
-  {
-    id: 100,
-    text: "As Terminal Manager, how do you balance cost control with maintaining high service quality?",
-    options: ["Implement lean operations, preventive maintenance, and performance-based incentives", "Cut all costs regardless of quality", "Increase charges to customers", "Reduce staff training"],
-    correctAnswer: 0,
-    difficulty: "Advanced",
-    score: 5
-  }
+{
+  id: 1,
+  text: "How often do you inspect your vehicle before starting a trip?",
+  options: [
+    "Before every trip",
+    "Only on long trips",
+    "Occasionally",
+    "Rarely"
+  ],
+  correctAnswer: 0,
+  difficulty: "Easy",
+  score: 2
+},
+{
+  id: 2,
+  text: "A passenger complains that a driver was rude during a journey. What is the best response?",
+  options: [
+    "Listen carefully, investigate the complaint, and take appropriate action",
+    "Ignore the complaint",
+    "Defend the driver immediately",
+    "Tell the passenger to leave"
+  ],
+  correctAnswer: 0,
+  difficulty: "Intermediate",
+  score: 3
+},
+{
+  id: 3,
+  text: "What should a driver do when feeling tired during a long-distance trip?",
+  options: [
+    "Stop safely and rest before continuing",
+    "Drink water and keep driving",
+    "Increase speed to arrive faster",
+    "Ignore the fatigue"
+  ],
+  correctAnswer: 0,
+  difficulty: "Easy",
+  score: 2
+},
+{
+  id: 4,
+  text: "How would you handle a situation where a passenger misses a scheduled departure by a few minutes?",
+  options: [
+    "Follow company policy while treating the passenger respectfully",
+    "Argue with the passenger",
+    "Ignore the passenger",
+    "Cancel all trips"
+  ],
+  correctAnswer: 0,
+  difficulty: "Advanced",
+  score: 4
+},
+{
+  id: 5,
+  text: "How often should vehicle maintenance records be updated?",
+  options: [
+    "After every maintenance activity",
+    "Once a year",
+    "Only when requested",
+    "Never"
+  ],
+  correctAnswer: 0,
+  difficulty: "Easy",
+  score: 2
+},
+{
+  id: 6,
+  text: "A customer becomes angry because of a delay caused by traffic. What should staff do first?",
+  options: [
+    "Acknowledge the frustration and provide clear information",
+    "Ignore the customer",
+    "Argue with the customer",
+    "Blame the driver"
+  ],
+  correctAnswer: 0,
+  difficulty: "Intermediate",
+  score: 3
+},
+{
+  id: 7,
+  text: "How often do you verify passenger manifests before departure?",
+  options: [
+    "Every trip",
+    "Once a week",
+    "Occasionally",
+    "Never"
+  ],
+  correctAnswer: 0,
+  difficulty: "Easy",
+  score: 2
+},
+{
+  id: 8,
+  text: "What is the safest action when driving in heavy rain with poor visibility?",
+  options: [
+    "Reduce speed and increase following distance",
+    "Maintain normal speed",
+    "Overtake frequently",
+    "Turn off headlights"
+  ],
+  correctAnswer: 0,
+  difficulty: "Easy",
+  score: 2
+},
+{
+  id: 9,
+  text: "A driver reports that the brakes feel unusual before departure. What should happen?",
+  options: [
+    "The vehicle should be inspected immediately",
+    "Continue the trip",
+    "Ignore the concern",
+    "Ask passengers for their opinion"
+  ],
+  correctAnswer: 0,
+  difficulty: "Intermediate",
+  score: 3
+},
+{
+  id: 10,
+  text: "What would you do if a passenger left an important item in your vehicle?",
+  options: [
+    "Report and secure the item according to company policy",
+    "Take it home",
+    "Ignore it",
+    "Throw it away"
+  ],
+  correctAnswer: 0,
+  difficulty: "Intermediate",
+  score: 3
+},
+{
+  id: 11,
+  text: "A route that normally takes 4 hours suddenly experiences daily delays. What should be your first action as Terminal Manager?",
+  options: [
+    "Suspend all trips permanently",
+    "Investigate the cause using trip data and driver reports",
+    "Replace all drivers immediately",
+    "Increase ticket prices"
+  ],
+  correctAnswer: 1,
+  difficulty: "Intermediate",
+  score: 3
+},
+{
+  id: 12,
+  text: "How often should driver performance be reviewed to maintain service quality?",
+  options: [
+    "Only when complaints occur",
+    "Every few years",
+    "Regularly using operational data and feedback",
+    "Never"
+  ],
+  correctAnswer: 2,
+  difficulty: "Intermediate",
+  score: 3
+},
+{
+  id: 13,
+  text: "A vehicle breaks down during peak travel hours. What is the most effective response?",
+  options: [
+    "Activate contingency plans and communicate with affected passengers",
+    "Wait until passengers complain",
+    "Cancel every trip for the day",
+    "Ignore the issue"
+  ],
+  correctAnswer: 0,
+  difficulty: "Advanced",
+  score: 4
+},
+{
+  id: 14,
+  text: "Which factor is most important when assigning drivers to long-distance routes?",
+  options: [
+    "Personal friendships",
+    "Driver experience, fitness, and safety record",
+    "Age only",
+    "Salary level"
+  ],
+  correctAnswer: 1,
+  difficulty: "Intermediate",
+  score: 3
+},
+{
+  id: 15,
+  text: "How would you handle repeated customer complaints about departure delays?",
+  options: [
+    "Blame traffic",
+    "Ignore the complaints",
+    "Analyze schedules and implement corrective measures",
+    "Reduce customer service staff"
+  ],
+  correctAnswer: 2,
+  difficulty: "Advanced",
+  score: 4
+},
+{
+  id: 16,
+  text: "What is the best indicator that a terminal is operating efficiently?",
+  options: [
+    "Consistent departures, customer satisfaction, and minimal downtime",
+    "Expensive office furniture",
+    "Large parking lots",
+    "High electricity consumption"
+  ],
+  correctAnswer: 0,
+  difficulty: "Intermediate",
+  score: 3
+},
+{
+  id: 17,
+  text: "A driver reports feeling unwell shortly before departure. What should a Terminal Manager do?",
+  options: [
+    "Advise the driver to continue",
+    "Find a qualified replacement and prioritize safety",
+    "Ignore the report",
+    "Allow passengers to decide"
+  ],
+  correctAnswer: 1,
+  difficulty: "Advanced",
+  score: 4
+},
+{
+  id: 18,
+  text: "How often should emergency response procedures be reviewed with staff?",
+  options: [
+    "Only after an incident",
+    "Never",
+    "Regularly through drills and training sessions",
+    "Once every ten years"
+  ],
+  correctAnswer: 2,
+  difficulty: "Intermediate",
+  score: 3
+},
+{
+  id: 19,
+  text: "Passenger demand increases significantly during holidays. What should be your priority?",
+  options: [
+    "Reduce trips",
+    "Increase operational capacity while maintaining safety standards",
+    "Close bookings",
+    "Reduce staff"
+  ],
+  correctAnswer: 1,
+  difficulty: "Advanced",
+  score: 4
+},
+{
+  id: 20,
+  text: "What is the best approach to resolving conflict between two staff members at the terminal?",
+  options: [
+    "Ignore the situation",
+    "Take sides immediately",
+    "Facilitate a fair discussion and seek resolution",
+    "Suspend both employees automatically"
+  ],
+  correctAnswer: 2,
+  difficulty: "Advanced",
+  score: 4
+},
+{
+  id: 21,
+  text: "A driver consistently arrives on time but receives frequent complaints about attitude. What should be your priority as Terminal Manager?",
+  options: [
+    "Ignore the complaints because the driver is punctual",
+    "Provide coaching and investigate the feedback while monitoring improvement",
+    "Suspend the driver immediately",
+    "Transfer the driver without discussion"
+  ],
+  correctAnswer: 1,
+  difficulty: "Advanced",
+  score: 4
+},
+{
+  id: 22,
+  text: "How often should terminal operations be reviewed to identify efficiency improvements?",
+  options: [
+    "Only when problems occur",
+    "Every five years",
+    "Regularly using operational reports and performance data",
+    "Never"
+  ],
+  correctAnswer: 2,
+  difficulty: "Intermediate",
+  score: 3
+},
+{
+  id: 23,
+  text: "A vehicle scheduled for departure has a minor fault that does not immediately affect movement. What is the best course of action?",
+  options: [
+    "Inspect and assess the risk before allowing operations",
+    "Allow the trip without inspection",
+    "Ignore the issue",
+    "Ask passengers if they are comfortable traveling"
+  ],
+  correctAnswer: 0,
+  difficulty: "Advanced",
+  score: 4
+},
+{
+  id: 24,
+  text: "What is the most effective way to reduce passenger complaints?",
+  options: [
+    "Increase advertising",
+    "Provide consistent service, communication, and timely issue resolution",
+    "Reduce ticket availability",
+    "Limit customer feedback channels"
+  ],
+  correctAnswer: 1,
+  difficulty: "Intermediate",
+  score: 3
+},
+{
+  id: 25,
+  text: "A route generates strong revenue but has a growing number of safety incidents. What should take priority?",
+  options: [
+    "Expanding the route immediately",
+    "Increasing ticket prices",
+    "Addressing safety concerns before pursuing growth",
+    "Reducing maintenance costs"
+  ],
+  correctAnswer: 2,
+  difficulty: "Advanced",
+  score: 5
+},
+{
+  id: 26,
+  text: "How should a Terminal Manager respond when staff morale begins to decline?",
+  options: [
+    "Identify concerns, engage staff, and implement practical improvements",
+    "Ignore the issue",
+    "Reduce communication with employees",
+    "Increase workload to improve productivity"
+  ],
+  correctAnswer: 0,
+  difficulty: "Advanced",
+  score: 4
+},
+{
+  id: 27,
+  text: "What is the primary purpose of monitoring vehicle turnaround time?",
+  options: [
+    "To determine fuel prices",
+    "To measure operational efficiency and resource utilization",
+    "To monitor passenger conversations",
+    "To reduce driver salaries"
+  ],
+  correctAnswer: 1,
+  difficulty: "Intermediate",
+  score: 3
+},
+{
+  id: 28,
+  text: "How often should safety procedures be communicated to operational staff?",
+  options: [
+    "Only during recruitment",
+    "Only after accidents",
+    "Continuously through meetings, reminders, and training",
+    "Once every three years"
+  ],
+  correctAnswer: 2,
+  difficulty: "Intermediate",
+  score: 3
+},
+{
+  id: 29,
+  text: "A customer reports that a staff member was unhelpful. What should happen first?",
+  options: [
+    "Gather facts from all parties before making a decision",
+    "Suspend the staff member immediately",
+    "Dismiss the complaint",
+    "Publicly criticize the employee"
+  ],
+  correctAnswer: 0,
+  difficulty: "Advanced",
+  score: 4
+},
+{
+  id: 30,
+  text: "Which action best improves long-term terminal performance?",
+  options: [
+    "Making decisions without data",
+    "Investing in staff development, maintenance, and operational improvements",
+    "Reducing training opportunities",
+    "Ignoring customer feedback"
+  ],
+  correctAnswer: 1,
+  difficulty: "Advanced",
+  score: 4
+},
+{
+  id: 31,
+  text: "Passenger volume has increased by 30% over the last three months, causing longer waiting times. What should be your first action?",
+  options: [
+    "Analyze operational data and identify capacity bottlenecks",
+    "Increase ticket prices immediately",
+    "Reduce the number of trips",
+    "Ignore the trend until complaints increase"
+  ],
+  correctAnswer: 0,
+  difficulty: "Advanced",
+  score: 4
+},
+{
+  id: 32,
+  text: "A highly experienced driver repeatedly ignores reporting procedures. How should you respond?",
+  options: [
+    "Ignore it because of the driver's experience",
+    "Address the issue professionally and enforce compliance standards",
+    "Publicly embarrass the driver",
+    "Remove the driver without investigation"
+  ],
+  correctAnswer: 1,
+  difficulty: "Advanced",
+  score: 4
+},
+{
+  id: 33,
+  text: "How often should operational risks be assessed and reviewed?",
+  options: [
+    "Only after incidents occur",
+    "Once every five years",
+    "Regularly as part of ongoing operations management",
+    "Only during audits"
+  ],
+  correctAnswer: 2,
+  difficulty: "Intermediate",
+  score: 3
+},
+{
+  id: 34,
+  text: "A major traffic disruption affects multiple scheduled departures. What is the most important immediate response?",
+  options: [
+    "Provide timely updates and coordinate alternative solutions",
+    "Turn off customer communication channels",
+    "Wait until passengers ask questions",
+    "Blame local authorities"
+  ],
+  correctAnswer: 0,
+  difficulty: "Advanced",
+  score: 5
+},
+{
+  id: 35,
+  text: "What is the best indicator of strong customer service performance?",
+  options: [
+    "Large office space",
+    "Positive customer feedback and efficient issue resolution",
+    "Number of managers on duty",
+    "Length of staff meetings"
+  ],
+  correctAnswer: 1,
+  difficulty: "Intermediate",
+  score: 3
+},
+{
+  id: 36,
+  text: "A staff member reports a safety concern that may delay departures. What should you do?",
+  options: [
+    "Ignore the concern to maintain schedules",
+    "Wait for another employee to report it",
+    "Investigate the concern and prioritize safety",
+    "Ask passengers to decide"
+  ],
+  correctAnswer: 2,
+  difficulty: "Advanced",
+  score: 5
+},
+{
+  id: 37,
+  text: "What is the most effective way to build accountability among terminal staff?",
+  options: [
+    "Set clear expectations and monitor performance fairly",
+    "Avoid performance discussions",
+    "Punish every mistake immediately",
+    "Allow staff to create their own rules"
+  ],
+  correctAnswer: 0,
+  difficulty: "Advanced",
+  score: 4
+},
+{
+  id: 38,
+  text: "A customer becomes aggressive after missing a departure. How should staff respond?",
+  options: [
+    "Respond aggressively",
+    "Remain calm, de-escalate the situation, and explain available options",
+    "Ignore the customer",
+    "Remove the customer without communication"
+  ],
+  correctAnswer: 1,
+  difficulty: "Advanced",
+  score: 4
+},
+{
+  id: 39,
+  text: "Which approach is most effective for improving operational efficiency across a terminal?",
+  options: [
+    "Making decisions based on assumptions",
+    "Reducing communication between departments",
+    "Using performance data to identify and solve recurring issues",
+    "Avoiding process reviews"
+  ],
+  correctAnswer: 2,
+  difficulty: "Advanced",
+  score: 4
+},
+{
+  id: 40,
+  text: "During a holiday period, demand exceeds available seats on several routes. What should be your priority?",
+  options: [
+    "Optimize resources and maintain safe, reliable service",
+    "Overload vehicles to meet demand",
+    "Accept bookings without capacity checks",
+    "Reduce customer communication"
+  ],
+  correctAnswer: 0,
+  difficulty: "Advanced",
+  score: 5
+}
 ];

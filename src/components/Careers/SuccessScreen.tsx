@@ -1,14 +1,22 @@
 "use client";
-import React, { useEffect, useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { CheckCircle, XCircle, Download, Share2, ArrowRight } from 'lucide-react';
-import confetti from 'canvas-confetti';
+
+import React, { useEffect, useState } from "react";
+import { motion } from "framer-motion";
+import { CheckCircle, XCircle, ArrowRight } from "lucide-react";
+
+interface ApplicantData {
+  fullName: string;
+  email: string;
+  phone: string;
+  vacancy: string;
+  [key: string]: any;
+}
 
 interface SuccessScreenProps {
   candidateId: string;
   score: number;
-  status: 'passed' | 'failed';
-  applicantData: any;
+  status: "passed" | "failed";
+  applicantData: ApplicantData | null;
 }
 
 const SuccessScreen: React.FC<SuccessScreenProps> = ({
@@ -18,186 +26,189 @@ const SuccessScreen: React.FC<SuccessScreenProps> = ({
   applicantData,
 }) => {
   const [emailSent, setEmailSent] = useState(false);
-  const [showConfetti, setShowConfetti] = useState(false);
+  const [emailError, setEmailError] = useState(false);
+  const [isSending, setIsSending] = useState(false);
 
-  // Email notification (unchanged)
+  const isPassed = status === "passed";
+
   useEffect(() => {
-    if (status === 'passed' && applicantData) {
-      const sendEmail = async () => {
-        try {
-          const form = new FormData();
-          form.append('access_key', process.env.NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY!);
-          form.append('subject', `✅ New Passed Application - ${applicantData.vacancy}`);
-          form.append('from_name', applicantData.fullName);
-          form.append('email', applicantData.email);
+    if (!applicantData || !isPassed) return;
 
-          form.append('fullName', applicantData.fullName);
-          form.append('email', applicantData.email);
-          form.append('phone', applicantData.phone);
-          form.append('vacancy', applicantData.vacancy);
-          form.append('score', `${score}%`);
-          form.append('candidateId', candidateId);
-          form.append('status', 'PASSED');
+    const sendEmail = async () => {
+      // Skip if no access key (common in dev)
+      if (!process.env.NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY) {
+        console.warn("⚠️ Web3Forms access key is missing. Skipping email notification.");
+        setEmailError(true);
+        return;
+      }
 
-          const response = await fetch('https://api.web3forms.com/submit', {
-            method: 'POST',
-            body: form,
-          });
+      setIsSending(true);
+      setEmailError(false);
 
-          if (response.ok) setEmailSent(true);
-        } catch (error) {
-          console.error("Failed to send email:", error);
+      try {
+        const form = new FormData();
+        form.append("access_key", process.env.NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY!);
+        form.append("subject", `New Qualified Application - ${applicantData.vacancy}`);
+        form.append("from_name", applicantData.fullName);
+        form.append("email", applicantData.email);
+
+        form.append("fullName", applicantData.fullName);
+        form.append("phone", applicantData.phone || "N/A");
+        form.append("vacancy", applicantData.vacancy);
+        form.append("score", `${score}%`);
+        form.append("candidateId", candidateId);
+        form.append("status", "QUALIFIED");
+
+        const response = await fetch("https://api.web3forms.com/submit", {
+          method: "POST",
+          body: form,
+        });
+
+        if (response.ok) {
+          setEmailSent(true);
+          console.log("✅ Application email sent successfully");
+        } else {
+          const errorText = await response.text();
+          console.error("Web3Forms error:", errorText);
+          setEmailError(true);
         }
+      } catch (error) {
+        console.error("Failed to send email:", error);
+        setEmailError(true);
+      } finally {
+        setIsSending(false);
+      }
+    };
+
+    // Small delay to let the UI render first
+    const timer = setTimeout(sendEmail, 800);
+    return () => clearTimeout(timer);
+  }, [isPassed, applicantData, score, candidateId]);
+
+  const statusConfig = isPassed
+    ? {
+        icon: CheckCircle,
+        color: "text-green-500",
+        bgColor: "bg-green-500/10 border-green-500/20",
+        title: "Assessment Completed Successfully",
+        message: "Thank you for completing the recruitment assessment. Your submission has been received.",
+      }
+    : {
+        icon: XCircle,
+        color: "text-red-500",
+        bgColor: "bg-red-500/10 border-red-500/20",
+        title: "Assessment Completed",
+        message: "Thank you for completing the assessment. We will review all applications and contact shortlisted candidates.",
       };
 
-      sendEmail();
-    }
-  }, [status, applicantData, score, candidateId]);
-
-  // Confetti
-  useEffect(() => {
-    if (status === 'passed') {
-      setShowConfetti(true);
-
-      const burstConfetti = () => {
-        confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 } });
-        confetti({ particleCount: 100, angle: 60, spread: 55, origin: { x: 0.1, y: 0.7 } });
-        confetti({ particleCount: 100, angle: 120, spread: 55, origin: { x: 0.9, y: 0.7 } });
-      };
-
-      burstConfetti();
-      const timer = setTimeout(burstConfetti, 800);
-      return () => clearTimeout(timer);
-    }
-  }, [status]);
-
-  const isPassed = status === 'passed';
+  const Icon = statusConfig.icon;
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-zinc-950 via-zinc-900 to-black flex items-center justify-center overflow-hidden relative px-4 py-8 sm:py-12">
-      {/* Background Pattern */}
-      <div className="absolute inset-0 bg-[radial-gradient(#27272a_0.8px,transparent_1px)] bg-[length:20px_20px] opacity-40" />
+    <div className="min-h-screen flex items-center justify-center px-4 py-12 relative overflow-hidden">
+      <div className="absolute inset-0 bg-[radial-gradient(#27272a_0.8px,transparent_1px)] bg-[length:22px_22px] opacity-20" />
 
       <motion.div
-        initial={{ opacity: 0, y: 30 }}
+        initial={{ opacity: 0, y: 24 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6, ease: "easeOut" }}
-        className="max-w-lg sm:max-w-xl md:max-w-2xl w-full mx-auto text-center relative z-10"
+        transition={{ duration: 0.5 }}
+        className="relative z-10 w-full max-w-2xl mx-auto"
       >
-        {/* Icon */}
-        <AnimatePresence>
+        <div className="bg-zinc-900/70 backdrop-blur-xl border border-zinc-800 rounded-3xl p-8 sm:p-10 shadow-2xl">
+
+          {/* Status Icon */}
           <motion.div
-            initial={{ scale: 0.6, rotate: -15 }}
-            animate={{
-              scale: 1,
-              rotate: 0,
-              transition: { type: "spring", stiffness: 120, damping: 12, delay: 0.2 },
-            }}
-            className="mb-8 sm:mb-10 flex justify-center"
+            initial={{ scale: 0.9 }}
+            animate={{ scale: 1 }}
+            transition={{ delay: 0.1 }}
+            className="flex justify-center mb-8"
           >
-            <div
-              className={`p-5 sm:p-6 md:p-8 rounded-full ${
-                isPassed ? 'bg-green-500/10' : 'bg-red-500/10'
-              }`}
-            >
-              {isPassed ? (
-                <CheckCircle className="w-20 h-20 sm:w-24 sm:h-24 md:w-28 md:h-28 text-green-500" strokeWidth={2} />
-              ) : (
-                <XCircle className="w-20 h-20 sm:w-24 sm:h-24 md:w-28 md:h-28 text-red-500" strokeWidth={2} />
-              )}
+            <div className={`w-20 h-20 rounded-full flex items-center justify-center border ${statusConfig.bgColor}`}>
+              <Icon className={`w-10 h-10 ${statusConfig.color}`} strokeWidth={2} />
             </div>
           </motion.div>
-        </AnimatePresence>
 
-        {/* Title */}
-        <motion.h2
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.4 }}
-          className="text-5xl sm:text-6xl md:text-7xl font-unbounded font-bold tracking-tighter mb-6 bg-gradient-to-r from-white via-zinc-200 to-zinc-400 bg-clip-text text-transparent leading-none"
-        >
-          {isPassed ? 'Congrats!' : 'Thank You for Applying'}
-        </motion.h2>
-
-        {/* Score */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.6 }}
-          className="mb-8 sm:mb-10"
-        >
-          <div className="inline-flex items-center gap-3 bg-zinc-900 border border-zinc-800 rounded-3xl px-6 sm:px-8 py-4 sm:py-5">
-            <span className="text-5xl sm:text-6xl font-semibold tabular-nums text-white">{score}</span>
-            <span className="text-3xl sm:text-4xl text-zinc-400">%</span>
-          </div>
-        </motion.div>
-
-        {/* Message */}
-        <p className="text-xl sm:text-2xl md:text-3xl text-zinc-300 mb-8 sm:mb-10 max-w-md mx-auto leading-tight px-2">
-          {isPassed
-            ? `Amazing work! Your Candidate ID is #${candidateId}`
-            : `You scored ${score}%. Better luck next time — we’d love to see you apply again.`}
-        </p>
-
-        {isPassed && (
-          <motion.p
+          {/* Title & Message */}
+          <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ delay: 0.8 }}
-            className="text-base sm:text-lg text-green-400 mb-10 sm:mb-12 font-medium px-4"
+            transition={{ delay: 0.15 }}
+            className="text-center"
           >
-            Our recruitment team has been notified. We’ll reach out soon if you’re shortlisted.
-          </motion.p>
-        )}
+            <h1 className="text-3xl sm:text-4xl font-semibold text-white tracking-tight">
+              {statusConfig.title}
+            </h1>
+            <p className="mt-3 text-sm sm:text-base text-zinc-400 leading-7 max-w-xl mx-auto">
+              {statusConfig.message}
+            </p>
+          </motion.div>
 
-        {/* Action Buttons */}
-        <div className="flex flex-col sm:flex-row gap-4 justify-center mt-6 sm:mt-12 px-4">
-          {isPassed ? (
-            <>
-              <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.98 }}
-                onClick={() => window.print()}
-                className="group flex items-center justify-center gap-3 bg-white text-black font-semibold px-8 py-4 rounded-2xl hover:bg-zinc-200 transition-all active:scale-95 text-base sm:text-lg"
-              >
-                <Download className="w-5 h-5 group-hover:-translate-y-0.5 transition" />
-                Save Result
-              </motion.button>
+          {/* Candidate ID */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.35 }}
+            className="mt-8"
+          >
+            <div className="bg-zinc-950/70 border border-zinc-800 rounded-2xl p-6 text-center">
+              <p className="text-[11px] uppercase tracking-[0.25em] text-zinc-500 mb-2">
+                CANDIDATE REFERENCE
+              </p>
+              <p className="text-lg font-medium text-white font-mono">#{candidateId}</p>
+            </div>
+          </motion.div>
 
-              <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.98 }}
-                className="group flex items-center justify-center gap-3 border border-zinc-700 hover:border-zinc-500 font-medium px-8 py-4 rounded-2xl transition-all text-base sm:text-lg"
-              >
-                <Share2 className="w-5 h-5" />
-                Share Achievement
-              </motion.button>
-            </>
-          ) : (
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.98 }}
-              className="flex items-center justify-center gap-3 bg-white text-black font-semibold px-10 py-4 rounded-2xl hover:bg-zinc-200 transition-all text-base sm:text-lg"
+          {/* Next Steps */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.45 }}
+            className="mt-8 space-y-4"
+          >
+            <div className="border border-zinc-800 rounded-2xl p-5 bg-zinc-950/40">
+              <h3 className="text-sm font-medium text-white mb-2">What happens next?</h3>
+              <p className="text-sm text-zinc-400 leading-7">
+                Our recruitment team will carefully review your application,
+                assessment performance, and qualifications. Shortlisted candidates
+                will be contacted within the next <span className="text-white font-medium">7–10 business days</span>.
+              </p>
+            </div>
+          </motion.div>
+
+          {/* CTA */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.55 }}
+            className="mt-10 flex justify-center"
+          >
+            <button
+              onClick={() => (window.location.href = "/")}
+              className="inline-flex items-center gap-2 bg-white text-black px-8 py-3.5 rounded-2xl text-sm font-medium hover:bg-zinc-200 active:scale-95 transition-all duration-200"
             >
-              Apply Again
-              <ArrowRight className="w-5 h-5" />
-            </motion.button>
-          )}
-        </div>
+              Return to Homepage
+              <ArrowRight className="w-4 h-4" />
+            </button>
+          </motion.div>
 
-        {/* Status Message */}
-        <div className="mt-10 sm:mt-12 text-sm text-zinc-500 flex items-center justify-center gap-2 px-4">
-          {isPassed ? (
-            emailSent ? "✅ Notification sent to the team" : "Sending notification to recruitment..."
-          ) : (
-            "Keep improving. The right opportunity is coming."
+          {/* Email Status */}
+          {isPassed && (
+            <div className="mt-8 text-center">
+              <p className="text-xs text-zinc-500">
+                {isSending
+                  ? "Recording application..."
+                  : emailSent
+                  ? "✓ Application successfully recorded & notified"
+                  : emailError
+                  ? "⚠️ Application recorded (notification failed)"
+                  : ""}
+              </p>
+            </div>
           )}
         </div>
       </motion.div>
 
-      {/* Footer */}
-      <div className="absolute bottom-6 sm:bottom-8 text-xs text-zinc-600 tracking-widest text-center px-4">
-        Flowvim • RECRUITING THE BEST
+      <div className="absolute bottom-6 text-[10px] tracking-[0.25em] uppercase text-zinc-600">
+        FLOWVIM • RECRUITMENT PORTAL
       </div>
     </div>
   );

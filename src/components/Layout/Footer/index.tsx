@@ -9,26 +9,23 @@ const Footer = () => {
     <>
       <footer className="pt-10 relative bg-white">
         <div className="container m-auto px-4 max-screen-xl">
+          {/* Contact & Social */}
           <div className="flex-col flex lg:flex-row justify-between lg:items-center border-b pb-10 mb-10 gap-6">
             <div className="flex-wrap flex md:flex-nowrap gap-6">
               <div className="flex items-start text-foottext text-[15px]">
                 <Icon icon="eui:location-outlined" className="w-6 h-6 mr-3 mt-1" />
                 <div className="flex flex-col">
-                  <span>FD-3. Procube Complex</span>
-                  <span>Vadodara, Gujaraat</span>
+                  <span>33 Unity Crescent</span>
+                  <span>Lagos, Nigeria</span>
                 </div>
               </div>
               <div className="flex items-center gap-2 text-foottext">
                 <Icon icon="majesticons:phone-retro-line" className="w-6 h-6" />
-                <Link href="#" className="text-[15px] hover:text-prim">
-                  (+234) 701 093 0763
-                </Link>
+                <span className="text-[15px]">0806 154 0345</span>
               </div>
               <div className="flex items-center gap-2 text-foottext">
                 <Icon icon="clarity:email-line" className="w-6 h-6" />
-                <Link href="#" className="text-[15px] hover:text-prim">
-                  exampleweb@gmail.com
-                </Link>
+                <span className="text-[15px]">samson.okorie@gmail.com</span>
               </div>
             </div>
 
@@ -54,7 +51,7 @@ const Footer = () => {
                 <Logo />
               </div>
               <p className="leading-6 text-[14px] text-foottext">
-                Enhance customer journeys to boost satisfaction, loyalty, and long-term real jobs.
+                Aligning people, processes, and performance to unlock sustainable growth and operational excellence.
               </p>
               <div className="flex flex-wrap gap-3 items-center pt-5">
                 <Image
@@ -74,43 +71,53 @@ const Footer = () => {
               </div>
             </div>
 
+            {/* Services */}
             <div className="lg:col-span-2">
-              <h4 className="text-[18px] text-black mb-3 font-chakrapetch font-bold">Services</h4>
+              <h4 className="text-[18px] text-black mb-3 font-chakrapetch font-bold">Our Services</h4>
               <ul>
                 {footerLinks.slice(0, 6).map((item, index) => (
-                  <li key={index} className="pb-2">
-                    <Link href="#" className="text-foottext text-[15px] hover:text-prim transition-colors">
-                      {item.link}
-                    </Link>
+                  <li key={index} className="pb-2 text-foottext text-[15px]">
+                    {item.link}
                   </li>
                 ))}
               </ul>
             </div>
 
+            {/* Resources */}
             <div className="lg:col-span-2">
               <h4 className="text-[18px] text-black mb-3 font-chakrapetch font-bold">Resources</h4>
               <ul>
                 {footerLinks.slice(6, 12).map((item, index) => (
-                  <li key={index} className="pb-2">
-                    <Link href="#" className="text-foottext text-[15px] hover:text-prim transition-colors">
-                      {item.link}
-                    </Link>
+                  <li key={index} className="pb-2 text-foottext text-[15px]">
+                    {item.link}
                   </li>
                 ))}
               </ul>
             </div>
 
-            {/* Updated Form Section */}
+            {/* Testimonial Form */}
             <div className="lg:col-span-5">
               <p className="text-[18px] text-black font-bold font-chakrapetch mb-4">
-                Share Your Testimonial
+                Share Your Experience
               </p>
-              <form className="space-y-4">
+
+              <form 
+                action="https://api.web3forms.com/submit" 
+                method="POST"
+                className="space-y-4"
+              >
+                <input type="hidden" name="access_key" value="068b2951-bedc-46fb-87ee-500635a1379f" />
+                <input type="hidden" name="subject" value="New Testimonial - Flowvim Website" />
+                <input type="hidden" name="from_name" value="Flowvim Website" />
+                
+                {/* Redirect back to same page with success message */}
+                <input type="hidden" name="redirect" value="https://flowvim.com?testimonial=success" />
+
                 <div>
                   <input
                     type="text"
                     name="name"
-                    placeholder="Your Name"
+                    placeholder="Your Full Name"
                     className="w-full bg-white placeholder:text-foottext text-black py-3 px-5 border border-border rounded-md focus:outline-none focus:border-prim"
                     required
                   />
@@ -120,7 +127,7 @@ const Footer = () => {
                   <input
                     type="email"
                     name="email"
-                    placeholder="Your Email"
+                    placeholder="Your Email Address"
                     className="w-full bg-white placeholder:text-foottext text-black py-3 px-5 border border-border rounded-md focus:outline-none focus:border-prim"
                     required
                   />
@@ -130,7 +137,7 @@ const Footer = () => {
                   <textarea
                     name="message"
                     rows={4}
-                    placeholder="Write your testimonial or message here..."
+                    placeholder="Tell us about your experience working with Flowvim..."
                     className="w-full bg-white placeholder:text-foottext text-black py-3 px-5 border border-border rounded-md resize-y focus:outline-none focus:border-prim"
                     required
                   ></textarea>
@@ -147,22 +154,25 @@ const Footer = () => {
             </div>
           </div>
 
+          {/* Success Message */}
+          {typeof window !== "undefined" && new URLSearchParams(window.location.search).get("testimonial") === "success" && (
+            <div className="mt-6 bg-green-100 border border-green-400 text-green-700 px-6 py-6 rounded-md text-center">
+              <p className="text-xl font-medium">✅ Thank You!</p>
+              <p>Your testimonial has been successfully received.</p>
+              <p className="text-sm mt-2">We appreciate your feedback.</p>
+            </div>
+          )}
+
+          {/* Bottom Bar */}
           <div className="flex flex-col sm:flex-row justify-between items-center border-t mt-10 pt-6 text-center sm:text-center">
             <p className="text-[15px] text-foottext mb-3 sm:mb-0">
-              2026. All rights reserved{" "}
-              <Link href="https://flowvim.com/" target="_blank" className="hover:text-prim">
-                Flowvim
-              </Link>
+              © 2026. All rights reserved Flowvim Management Consulting
             </p>
             <div className="flex gap-4">
               {footerLinks.slice(12, 15).map((item, index) => (
-                <Link
-                  key={index}
-                  href="#"
-                  className="text-foottext hover:text-prim text-[15px]"
-                >
+                <span key={index} className="text-foottext text-[15px]">
                   {item.link}
-                </Link>
+                </span>
               ))}
             </div>
           </div>

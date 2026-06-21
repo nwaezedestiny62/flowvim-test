@@ -180,11 +180,11 @@ const Page = () => {
               More Questions?
             </motion.span>
 
-            <motion.h2 variants={fadeUp} className="mt-5 font-chakrapetch text-3xl md:text-4xl lg:text-5xl font-bold">
+            <motion.h2 variants={fadeUp} className="mt-5 text-white font-chakrapetch text-3xl md:text-4xl lg:text-5xl font-bold">
               Still Have Questions?
             </motion.h2>
 
-            <motion.p variants={fadeUp} className="mt-4 text-gray-600 leading-7 max-w-2xl mx-auto">
+            <motion.p variants={fadeUp} className="mt-4 text-white leading-7 max-w-2xl mx-auto">
               Can’t find what you’re looking for? Feel free to reach out to us directly.
               We’re happy to provide personalized answers.
             </motion.p>
