@@ -1,145 +1,242 @@
 "use client";
-import React, { useState, useEffect } from 'react';
-import { questionBank, type Question } from '@/lib/questions';
-import { motion } from 'framer-motion';
+
+import React, { useState, useEffect } from "react";
+import { questionBank, type Question } from "@/lib/questions";
+import { motion, AnimatePresence } from "framer-motion";
 
 interface AssessmentProps {
   experienceYears: number;
   onComplete: (score: number, candidateId: string) => void;
-  applicantData: any;
+  onCancel?: () => void;
 }
 
-const Assessment: React.FC<AssessmentProps> = ({ experienceYears, onComplete }) => {
+const Assessment: React.FC<AssessmentProps> = ({
+  experienceYears,
+  onComplete,
+  onCancel,
+}) => {
   const [questions, setQuestions] = useState<Question[]>([]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [answers, setAnswers] = useState<Record<number, number>>({});
-  const [submitted, setSubmitted] = useState(false);
+  const [showStopModal, setShowStopModal] = useState(false);
 
-  useEffect(() => {
-    // Get 5 relevant questions
-    let filtered = [...questionBank];
+useEffect(() => {
+  let filtered: Question[] = [];
 
-    // Optional: Adjust based on experience
-    if (experienceYears <= 3) {
-      filtered = filtered.filter(q => q.difficulty !== 'Advanced');
+  // 1 year experience
+  if (experienceYears === 1) {
+    filtered = questionBank.filter(
+      (q) => q.id >= 1 && q.id <= 10
+    );
+  }
+
+  // 2 - 3 years experience
+  else if (experienceYears >= 2 && experienceYears <= 3) {
+    filtered = questionBank.filter(
+      (q) => q.id >= 11 && q.id <= 25
+    );
+  }
+
+  // 4 years and above
+  else {
+    filtered = questionBank.filter(
+      (q) => q.id >= 26 && q.id <= 40
+    );
+  }
+
+  // Shuffle options only
+  const selected = filtered.map((q) => {
+    const shuffled = [...q.options];
+    const correctText = shuffled[q.correctAnswer];
+
+    for (let i = shuffled.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
     }
 
-    // Shuffle questions
-    filtered.sort(() => Math.random() - 0.5);
+    return {
+      ...q,
+      options: shuffled,
+      correctAnswer: shuffled.indexOf(correctText),
+    };
+  });
 
-    // Take only 5 questions
-    const selectedQuestions = filtered.slice(0, 7).map(q => {
-      // Shuffle options and track correct answer
-      const shuffledOptions = [...q.options];
-      const correctText = shuffledOptions[q.correctAnswer];
-      
-      // Shuffle array
-      for (let i = shuffledOptions.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [shuffledOptions[i], shuffledOptions[j]] = [shuffledOptions[j], shuffledOptions[i]];
-      }
+  setQuestions(selected);
+}, [experienceYears]);
 
-      const newCorrectIndex = shuffledOptions.indexOf(correctText);
-
-      return {
-        ...q,
-        options: shuffledOptions,
-        correctAnswer: newCorrectIndex
-      };
-    });
-
-    setQuestions(selectedQuestions);
-  }, [experienceYears]);
-
-  const handleAnswer = (questionId: number, optionIndex: number) => {
-    setAnswers(prev => ({ ...prev, [questionId]: optionIndex }));
+  const handleAnswer = (id: number, idx: number) => {
+    setAnswers((p) => ({ ...p, [id]: idx }));
   };
 
   const calculateScore = () => {
-    let totalScore = 0;
-    let maxScore = 0;
+    let total = 0;
+    let max = 0;
 
-    questions.forEach(q => {
-      const userAnswer = answers[q.id];
-      maxScore += q.score;
-      if (userAnswer === q.correctAnswer) {
-        totalScore += q.score;
-      }
+    questions.forEach((q) => {
+      max += q.score;
+      if (answers[q.id] === q.correctAnswer) total += q.score;
     });
 
-    return Math.round((totalScore / maxScore) * 100);
+    return Math.round((total / max) * 100);
   };
 
-  const finishAssessment = () => {
-    const finalScore = calculateScore();
+  const finish = () => {
     const year = new Date().getFullYear();
-    const randomNum = Math.floor(1000 + Math.random() * 9000);
-    const candidateId = `FLV-RT-${year}-${randomNum}`; // RT = Road Transport
-
-    onComplete(finalScore, candidateId);
+    const id = `FLV-${year}-${Math.floor(1000 + Math.random() * 9000)}`;
+    onComplete(calculateScore(), id);
   };
 
-  if (questions.length === 0) return <div className="text-center py-20">Loading assessment...</div>;
+  const current = questions[currentIndex];
+  const progress = ((currentIndex + 1) / questions.length) * 100;
 
-  const currentQuestion = questions[currentIndex];
+  if (!questions.length) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-transparent text-white">
+        <div className="w-8 h-8 border-4 border-[#26667F] border-t-transparent rounded-full animate-spin" />
+      </div>
+    );
+  }
 
   return (
-    <div className="max-w-3xl mx-auto">
-      <div className="text-center mb-10">
-        <h2 className="text-4xl font-unbounded">Road Transport Terminal Assessment</h2>
-        <p className="text-gray-400 mt-3">Question {currentIndex + 1} of {questions.length}</p>
+    <div className="min-h-screen bg-transparent text-white pb-20">
+
+      {/* HEADER */}
+      <div className="sticky mt-30 top-0 z-50 bg-black/20 backdrop-blur-xl border-b border-white/10">
+        <div className="max-w-3xl mx-auto px-4 py-4 flex justify-between items-center">
+          <div>
+            <h1 className="text-lg sm:text-2xl font-semibold">
+              Assessment
+            </h1>
+            <p className="text-xs sm:text-sm text-white/60">
+              {currentIndex + 1} / {questions.length}
+            </p>
+          </div>
+
+          <div className="hidden sm:block w-48 h-1 bg-white/10 rounded-full overflow-hidden">
+            <div
+              className="h-full bg-[#3a8ca8] transition-all"
+              style={{ width: `${progress}%` }}
+            />
+          </div>
+        </div>
       </div>
 
-      <motion.div
-        key={currentIndex}
-        initial={{ opacity: 0, x: 20 }}
-        animate={{ opacity: 1, x: 0 }}
-        className="bg-[#132B2F] p-10 rounded-3xl border border-[#26667F]"
-      >
-        <p className="text-xl leading-relaxed mb-10">{currentQuestion.text}</p>
+      {/* QUESTION */}
+      <div className="max-w-3xl mx-auto px-4 pt-8">
+        <motion.div
+          key={currentIndex}
+          initial={{ opacity: 0, y: 18 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-3xl p-5 sm:p-8"
+        >
+          <p className="text-base sm:text-lg mb-8">
+            {current.text}
+          </p>
 
-        <div className="space-y-4">
-          {currentQuestion.options.map((option, idx) => (
+          <div className="space-y-3">
+            {current.options.map((opt, i) => {
+              const active = answers[current.id] === i;
+
+              return (
+                <button
+                  key={i}
+                  onClick={() => handleAnswer(current.id, i)}
+                  className={`w-full text-left p-4 sm:p-5 rounded-2xl border transition-all ${
+                    active
+                      ? "bg-[#1a3a44] border-[#3a8ca8]"
+                      : "bg-white/5 border-white/10 hover:border-[#3a8ca8]"
+                  }`}
+                >
+                  {opt}
+                </button>
+              );
+            })}
+          </div>
+
+          {/* NAVIGATION */}
+          <div className="flex flex-col sm:flex-row gap-3 mt-10">
+
             <button
-              key={idx}
-              onClick={() => handleAnswer(currentQuestion.id, idx)}
-              className={`w-full text-left p-6 rounded-2xl border transition-all ${
-                answers[currentQuestion.id] === idx
-                  ? 'border-[#3a8ca8] bg-[#1a3a44]'
-                  : 'border-[#26667F] hover:border-[#3a8ca8]'
+              onClick={() => setCurrentIndex((p) => Math.max(0, p - 1))}
+              disabled={currentIndex === 0}
+              className={`flex-1 sm:flex-none px-6 py-3 rounded-xl border transition ${
+                currentIndex === 0
+                  ? "opacity-40 cursor-not-allowed border-white/10"
+                  : "border-white/10 hover:border-white/30"
               }`}
             >
-              {option}
+              Previous
             </button>
-          ))}
-        </div>
 
-        <div className="flex justify-between mt-12">
-          <button
-            onClick={() => setCurrentIndex(prev => Math.max(0, prev - 1))}
-            disabled={currentIndex === 0}
-            className="px-8 py-4 disabled:opacity-50 text-gray-400 hover:text-white"
-          >
-            Previous
-          </button>
+            {currentIndex < questions.length - 1 ? (
+              <button
+                onClick={() => setCurrentIndex((p) => p + 1)}
+                className="flex-1 px-6 py-3 rounded-xl bg-[#26667F]"
+              >
+                Next
+              </button>
+            ) : (
+              <button
+                onClick={finish}
+                className="flex-1 px-6 py-3 rounded-xl bg-green-600"
+              >
+                Finish
+              </button>
+            )}
+          </div>
 
-          {currentIndex === questions.length - 1 ? (
+          {/* STOP BUTTON (NOW UNDER QUESTIONS) */}
+          <div className="mt-8 flex justify-center">
             <button
-              onClick={finishAssessment}
-              className="px-10 py-4 bg-green-600 hover:bg-green-700 rounded-2xl font-medium"
+              onClick={() => setShowStopModal(true)}
+              className="text-red-400 border border-red-500/30 hover:bg-red-500/10 px-5 py-2 rounded-xl text-sm"
             >
-              Finish Assessment
+              Stop Assessment
             </button>
-          ) : (
-            <button
-              onClick={() => setCurrentIndex(prev => prev + 1)}
-              className="px-10 py-4 bg-[#26667F] hover:bg-[#3a8ca8] rounded-2xl font-medium"
+          </div>
+        </motion.div>
+      </div>
+
+      {/* MODAL */}
+      <AnimatePresence>
+        {showStopModal && (
+          <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center px-4">
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.95 }}
+              className="bg-white/10 backdrop-blur-xl border border-white/10 rounded-3xl p-6 max-w-md w-full"
             >
-              Next Question
-            </button>
-          )}
-        </div>
-      </motion.div>
+              <h3 className="text-lg font-semibold mb-3">
+                Stop assessment?
+              </h3>
+
+              <p className="text-white/60 mb-6">
+                Progress will be lost.
+              </p>
+
+              <div className="flex gap-3">
+                <button
+                  onClick={() => setShowStopModal(false)}
+                  className="flex-1 border border-white/10 rounded-xl py-3"
+                >
+                  Continue
+                </button>
+
+                <button
+                  onClick={() => {
+                    setShowStopModal(false);
+                    onCancel?.();
+                  }}
+                  className="flex-1 bg-red-600 rounded-xl py-3"
+                >
+                  Stop
+                </button>
+              </div>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
     </div>
   );
 };

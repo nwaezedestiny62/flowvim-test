@@ -33,4 +33,8 @@ export const headerData: HeaderItem[] = [
     href: "/careers" 
   },
   { label: "Contact Us", href: "/contact" },
+  {
+    label: "Shop",          // ← NEW
+    href: "/shop",
+  },
 ];

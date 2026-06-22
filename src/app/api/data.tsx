@@ -151,7 +151,7 @@ export const team = [
   },
   {
     id: 3,
-    name: "Blessing Okozie",
+    name: "Blessing Okezie",
     post: "Lead Strategy Consultant",
     image: "/images/team/team-3.webp",
   },

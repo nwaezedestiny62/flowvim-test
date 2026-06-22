@@ -1,171 +1,145 @@
 "use client";
-import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import ApplicationForm from '@/components/Careers/ApplicationForm';
-import Assessment from '@/components/Careers/Assessment';
-import SuccessScreen from '@/components/Careers/SuccessScreen';
-import VacancyCard from '@/components/Careers/VacancyCard';
+
+import React, { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { Icon } from "@iconify/react";
+
+import ApplicationForm from "@/components/Careers/ApplicationForm";
+import Assessment from "@/components/Careers/Assessment";
+import SuccessScreen from "@/components/Careers/SuccessScreen";
+import VacancyCard from "@/components/Careers/VacancyCard";
 
 const vacancies = [
   {
-    id: 'TM-001',
-    title: 'Terminal Manager',
-    location: 'Lagos, Nigeria',
-    type: 'Full-time',
-    experience: '5+ years',
-    description: 'Lead terminal operations, ensure safety & efficiency...',
+    id: "TM-001",
+    title: "Terminal Manager",
+    location: "Lagos, Nigeria",
+    type: "Full-time",
+    experience: "5+ years",
+    description: "Lead terminal operations, ensure safety & efficiency...",
   },
-  // Add more vacancies here
 ];
 
-export default function CareersPage() {
-  const [step, setStep] = useState<'list' | 'form' | 'assessment' | 'success'>('list');
-  const [applicationData, setApplicationData] = useState<any>(null);
-  const [candidateId, setCandidateId] = useState('');
-  const [score, setScore] = useState(0);
-  const [status, setStatus] = useState<'passed' | 'failed'>('failed');
+type Step = "list" | "form" | "assessment" | "success";
 
-  const handleApply = (vacancy: any) => {
-    setApplicationData({ ...vacancy, experienceYears: 0 });
-    setStep('form');
+export default function CareersPage() {
+  const [step, setStep] = useState<Step>("list");
+
+  const [vacancy, setVacancy] = useState<any>(null);
+  const [applicationData, setApplicationData] = useState<any>(null);
+
+  const [candidateId, setCandidateId] = useState("");
+  const [score, setScore] = useState(0);
+  const [status, setStatus] = useState<"passed" | "failed">("failed");
+
+  const handleApply = (vac: any) => {
+    setVacancy(vac);
+    setStep("form");
   };
 
   const handleFormSubmit = (data: any) => {
-    setApplicationData(data);
-    setStep('assessment');
+    setApplicationData({
+      ...data,
+      vacancy: vacancy?.title,
+    });
+
+    setStep("assessment");
   };
 
-  const handleAssessmentComplete = (finalScore: number, finalCandidateId: string) => {
+  const handleAssessmentComplete = (
+    finalScore: number,
+    finalCandidateId: string
+  ) => {
     setScore(finalScore);
     setCandidateId(finalCandidateId);
-    setStatus(finalScore >= 70 ? 'passed' : 'failed');
-    setStep('success');
+    setStatus(finalScore >= 70 ? "passed" : "failed");
+    setStep("success");
   };
 
-  const handleBack = () => {
-    if (step === 'form') setStep('list');
-    if (step === 'assessment') setStep('form');
+  const handleCancelAssessment = () => {
+    setStep("form");
   };
 
   return (
-    <div className="min-h-screen bg-[#0d1e20] text-white overflow-hidden">
-      {/* HERO SECTION - Only shown on the list view */}
-      {step === 'list' && (
-        <div className="pt-32 md:pt-40 lg:pt-48 pb-20 border-b border-white/10 bg-gradient-to-b from-black/70 via-black/40 to-transparent">
-          <div className="container mx-auto px-6 max-w-6xl text-center">
-            <motion.div
-              initial={{ opacity: 0, y: 50 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, ease: "easeOut" }}
-            >
-              <h1 className="text-6xl md:text-7xl lg:text-8xl font-unbounded font-bold tracking-tighter mb-6 bg-gradient-to-r from-white via-zinc-200 to-zinc-400 bg-clip-text text-transparent">
-                Careers at Flowvim
+    <div className="min-h-screen bg-[#0a1417] text-white overflow-hidden">
+      {/* HERO */}
+      {step === "list" && (
+        <div className="pt-40 pb-16 border-b border-white/10 bg-gradient-to-b from-[#0a1417] via-[#0f1f24] to-transparent">
+          <div className="container mx-auto px-6 max-w-5xl text-center">
+            <motion.div initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }}>
+              <div className="inline-flex items-center gap-2 bg-blue-950/50 border border-blue-500/20 rounded-full px-4 py-1.5 mb-6">
+                <Icon icon="mdi:briefcase-outline" className="text-blue-400" width={20} />
+                <span className="text-sm font-medium text-blue-400">
+                  JOIN THE TEAM
+                </span>
+              </div>
+
+              <h1 className="text-5xl font-bold mb-6">
+                Build the Future <span className="text-blue-400">Flowvim</span>
               </h1>
-              <p className="text-xl md:text-2xl text-gray-400 max-w-3xl mx-auto leading-tight">
-                Join our team and help bridge strategy with execution across Africa.
+
+              <p className="text-gray-400">
+                Join a team that bridges strategy with execution across Africa.
               </p>
             </motion.div>
           </div>
         </div>
       )}
 
-      <main data-careers="true" className="container mx-auto px-6 max-w-6xl py-16">
+      <main className="container mx-auto px-6 max-w-5xl py-12">
         <AnimatePresence mode="wait">
-          {/* Vacancy List Step */}
-          {step === 'list' && (
-            <motion.div
-              key="list"
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -30 }}
-              transition={{ duration: 0.5 }}
-            >
-              <div className="flex justify-between items-end mb-10">
-                <div>
-                  <h2 className="text-4xl font-unbounded tracking-tight">Open Positions</h2>
-                  <p className="text-gray-400 mt-2">Find your next challenge</p>
-                </div>
-                <div className="text-sm text-gray-500 hidden md:block">
-                  {vacancies.length} opportunity{vacancies.length !== 1 ? 's' : ''}
-                </div>
-              </div>
-
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                {vacancies.map((vac) => (
-                  <VacancyCard 
-                    key={vac.id} 
-                    vacancy={vac} 
-                    onApply={handleApply} 
-                  />
+          {/* LIST */}
+          {step === "list" && (
+            <motion.div key="list" initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+              <div className="grid gap-6 max-w-3xl mx-auto">
+                {vacancies.map((v) => (
+                  <VacancyCard key={v.id} vacancy={v} onApply={handleApply} />
                 ))}
               </div>
-
-              {vacancies.length === 0 && (
-                <div className="text-center py-20 text-gray-400">
-                  No open positions at the moment. Check back soon!
-                </div>
-              )}
             </motion.div>
           )}
 
-          {/* Application Form Step */}
-          {step === 'form' && applicationData && (
+          {/* FORM */}
+          {step === "form" && vacancy && (
             <motion.div
               key="form"
-              initial={{ opacity: 0, x: 50 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: -50 }}
-              className="max-w-3xl mx-auto"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              className="max-w-2xl mx-auto"
             >
-              <button
-                onClick={handleBack}
-                className="mb-8 flex items-center gap-2 text-gray-400 hover:text-white transition-colors"
-              >
-                ← Back to positions
-              </button>
-              <ApplicationForm 
-                vacancy={applicationData} 
-                onSubmit={handleFormSubmit} 
-              />
+              <ApplicationForm vacancy={vacancy} onSubmit={handleFormSubmit} />
             </motion.div>
           )}
 
-          {/* Assessment Step */}
-          {step === 'assessment' && applicationData && (
+          {/* ASSESSMENT */}
+          {step === "assessment" && applicationData && (
             <motion.div
               key="assessment"
-              initial={{ opacity: 0, x: 50 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: -50 }}
-              className="max-w-3xl mx-auto"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              className="max-w-2xl mx-auto"
             >
-              <button
-                onClick={handleBack}
-                className="mb-8 flex items-center gap-2 text-gray-400 hover:text-white transition-colors"
-              >
-                ← Back to application
-              </button>
-              <Assessment 
-                experienceYears={applicationData.experienceYears} 
-                onComplete={handleAssessmentComplete} 
-                applicantData={applicationData}
+              <Assessment
+                experienceYears={applicationData.experienceYears}
+                onComplete={handleAssessmentComplete}
+                onCancel={handleCancelAssessment}
               />
             </motion.div>
           )}
 
-          {/* Success Screen Step */}
-          {step === 'success' && (
+          {/* SUCCESS */}
+          {step === "success" && applicationData && (
             <motion.div
               key="success"
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
               className="min-h-[70vh] flex items-center justify-center"
             >
-              <SuccessScreen 
-                candidateId={candidateId} 
-                score={score} 
-                status={status} 
-                applicantData={applicationData} 
+              <SuccessScreen
+                candidateId={candidateId}
+                score={score}
+                status={status}
+                applicantData={applicationData}
               />
             </motion.div>
           )}
