@@ -13,24 +13,35 @@ export default function CartModal({ isOpen, onClose }: CartModalProps) {
   const { cart, removeFromCart, updateQuantity, total } = useCart();
 
   const contactSeller = () => {
-    const phone = "07010930763";
-    const itemsList = cart.map(p => 
-      `• ${p.title} (x${p.quantity}) - ₦${(p.price * p.quantity).toLocaleString()}`
-    ).join('\n');
+    // Bulletproof phone number (International format)
+    const phone = "2347010930763"; // ← Changed to international format
+
+    const itemsList = cart
+      .map((p) => 
+        `• ${p.title} (x${p.quantity}) - ₦${(p.price * p.quantity).toLocaleString()}`
+      )
+      .join("\n");
+
+    const message = `Hello! I'm interested in these items from FlowVim Shop:\n\n${itemsList}\n\nTotal: ₦${total.toLocaleString()}\n\nPlease let me know about availability and delivery. Thank you!`;
+
+    // Bulletproof WhatsApp link
+    const whatsappUrl = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
     
-    const message = `Hello! I'm interested in these items from FlowVim Shop:\n\n${itemsList}\n\nTotal: ₦${total.toLocaleString()}\n\nPlease let me know availability.`;
-    
-    window.open(`https://wa.me/${phone}?text=${encodeURIComponent(message)}`, '_blank');
+    // Open in new tab
+    window.open(whatsappUrl, "_blank");
     onClose();
   };
 
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 bg-black/70 z-[300] flex items-center justify-center p-4" onClick={onClose}>
+    <div 
+      className="fixed inset-0 bg-black/70 z-[300] flex items-center justify-center p-4" 
+      onClick={onClose}
+    >
       <div 
-        className="bg-white rounded-3xl w-full max-w-xl max-h-[90vh] flex flex-col shadow-2xl overflow-hidden"  // ← Increased width
-        onClick={e => e.stopPropagation()}
+        className="bg-white rounded-3xl w-full max-w-xl max-h-[90vh] flex flex-col shadow-2xl overflow-hidden"  
+        onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}
         <div className="p-6 border-b flex items-center justify-between bg-white sticky top-0 z-10">
@@ -123,20 +134,20 @@ export default function CartModal({ isOpen, onClose }: CartModalProps) {
               <span className="text-3xl font-bold font-unbounded">₦{total.toLocaleString()}</span>
             </div>
 
-<button
-  onClick={contactSeller}
-  className="w-full bg-[#25D366] hover:bg-[#20b557] active:scale-[0.985] text-white py-4 px-6 rounded-2xl font-chakrapetch tracking-wider flex items-center justify-center gap-3 transition-all shadow-lg text-base sm:text-lg"
->
-  <Icon 
-    icon="mdi:whatsapp" 
-    width={28} 
-    className="flex-shrink-0 sm:w-8" 
-  />
-  <span className="leading-tight">Contact Flowvim Shop on WhatsApp</span>
-</button>
+            <button
+              onClick={contactSeller}
+              className="w-full bg-[#25D366] hover:bg-[#20b557] active:scale-[0.985] text-white py-4 px-6 rounded-2xl font-semibold tracking-wider flex items-center justify-center gap-3 transition-all shadow-lg text-base sm:text-lg"
+            >
+              <Icon 
+                icon="mdi:whatsapp" 
+                width={28} 
+                className="flex-shrink-0" 
+              />
+              <span>Contact Flowvim Shop on WhatsApp</span>
+            </button>
 
             <p className="text-center text-xs text-gray-500 mt-4">
-              You’ll be taken to WhatsApp to confirm your order, quantity, and delivery details
+              You’ll be redirected to WhatsApp to confirm your order
             </p>
           </div>
         )}

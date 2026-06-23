@@ -38,10 +38,10 @@ const BlogDetails = async ({ params }: Props) => {
     <>
       <HeroSub title={currentBlog.title} description="" breadcrumbLinks={breadcrumbsLinks} />
 
-      <section className="pb-12 md:pb-20">
+      <section className="pb-12 md:pb-20 bg-prim-light">
         <div className="container mx-auto px-4 md:px-6 lg:max-w-7xl flex flex-col lg:flex-row gap-8 lg:gap-10">
           {/* Main Content */}
-          <div className="lg:w-[65%] w-full">
+          <div className="lg:w-[65%] mt-10 w-full">
             <div className="rounded-3xl bg-white p-5 md:p-8 shadow-sm">
               {/* Featured Image */}
               <div className="relative w-full aspect-[16/9] md:aspect-[16/10] overflow-hidden rounded-2xl">

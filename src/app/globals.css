@@ -696,3 +696,15 @@ html {
   background: #facc15;
   color: #000;
 }
+
+/* Target low-resolution Android devices like Hot 10 */
+@media (max-width: 720px) and (max-height: 1640px) {
+  .container {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+  
+  h1, h2 {
+    font-size: 1.75rem !important; /* Smaller big headings */
+  }
+}

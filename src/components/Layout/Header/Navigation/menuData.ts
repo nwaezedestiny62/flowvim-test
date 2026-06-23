@@ -9,7 +9,7 @@ export const headerData: HeaderItem[] = [
     submenu: [
       { label: "About Us", href: "/about" },
       { label: "Our Team", href: "/team" },
-      { label: "FAQ", href: "/faq" },
+      { label: "FAQs", href: "/faq" },
       { label: "Contact", href: "/contact" },
     ],
   },
