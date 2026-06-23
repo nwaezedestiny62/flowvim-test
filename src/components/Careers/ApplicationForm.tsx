@@ -92,7 +92,7 @@ const ApplicationForm: React.FC<ApplicationFormProps> = ({
         className="max-w-3xl mx-auto"
       >
         {/* HEADER */}
-        <div className="text-center mb-8 mt-23 sm:mb-12">
+        <div className="text-center mb-8  sm:mb-12">
           <h2 className="text-xl sm:text-3xl md:text-4xl font-bold text-white leading-tight">
             Apply for{" "}
             <span className="text-[#26667F]">{vacancy.title}</span>

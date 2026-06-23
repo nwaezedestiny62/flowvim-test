@@ -93,13 +93,14 @@ const SuccessScreen: React.FC<SuccessScreenProps> = ({
         title: "Assessment Completed Successfully",
         message: "Thank you for completing the recruitment assessment. Your submission has been received.",
       }
-    : {
-        icon: XCircle,
-        color: "text-red-500",
-        bgColor: "bg-red-500/10 border-red-500/20",
-        title: "Assessment Completed",
-        message: "Thank you for completing the assessment. We will review all applications and contact shortlisted candidates.",
-      };
+    :{
+icon: XCircle,
+color: "text-red-500",
+bgColor: "bg-red-500/10 border-red-500/20",
+title: "Application Unsuccessful",
+message: "Thank you for completing the assessment. Your score did not meet the required benchmark for this role. We encourage you to apply again in the future."
+}
+
 
   const Icon = statusConfig.icon;
 
@@ -167,9 +168,7 @@ const SuccessScreen: React.FC<SuccessScreenProps> = ({
             <div className="border border-zinc-800 rounded-2xl p-5 bg-zinc-950/40">
               <h3 className="text-sm font-medium text-white mb-2">What happens next?</h3>
               <p className="text-sm text-zinc-400 leading-7">
-                Our recruitment team will carefully review your application,
-                assessment performance, and qualifications. Shortlisted candidates
-                will be contacted within the next <span className="text-white font-medium">7–10 business days</span>.
+                Thank you for completing the application process. Our recruitment team will review all submissions and contact candidates selected for the next stage within <span className="text-white font-medium">7–10 business days</span>.
               </p>
             </div>
           </motion.div>

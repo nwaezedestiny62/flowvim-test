@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Icon } from "@iconify/react";
 
@@ -8,6 +8,7 @@ import ApplicationForm from "@/components/Careers/ApplicationForm";
 import Assessment from "@/components/Careers/Assessment";
 import SuccessScreen from "@/components/Careers/SuccessScreen";
 import VacancyCard from "@/components/Careers/VacancyCard";
+import { useLayout } from "@/contexts/LayoutContext";
 
 const vacancies = [
   {
@@ -32,6 +33,18 @@ export default function CareersPage() {
   const [score, setScore] = useState(0);
   const [status, setStatus] = useState<"passed" | "failed">("failed");
 
+  const { setHideNav } = useLayout();
+
+  // Hide nav on form, assessment, and success screens
+  useEffect(() => {
+    setHideNav(step !== "list");
+    
+    // Cleanup when leaving the page
+    return () => {
+      setHideNav(false);
+    };
+  }, [step, setHideNav]);
+
   const handleApply = (vac: any) => {
     setVacancy(vac);
     setStep("form");
@@ -42,7 +55,6 @@ export default function CareersPage() {
       ...data,
       vacancy: vacancy?.title,
     });
-
     setStep("assessment");
   };
 
@@ -62,7 +74,7 @@ export default function CareersPage() {
 
   return (
     <div className="min-h-screen bg-[#0a1417] text-white overflow-hidden">
-      {/* HERO */}
+      {/* HERO - only on list */}
       {step === "list" && (
         <div className="pt-40 pb-16 border-b border-white/10 bg-gradient-to-b from-[#0a1417] via-[#0f1f24] to-transparent">
           <div className="container mx-auto px-6 max-w-5xl text-center">

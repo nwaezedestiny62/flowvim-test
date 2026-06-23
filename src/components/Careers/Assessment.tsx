@@ -101,7 +101,7 @@ useEffect(() => {
     <div className="min-h-screen bg-transparent text-white pb-20">
 
       {/* HEADER */}
-      <div className="sticky mt-30 top-0 z-50 bg-black/20 backdrop-blur-xl border-b border-white/10">
+      <div className="sticky top-0 z-50 bg-black/20 backdrop-blur-xl border-b border-white/10">
         <div className="max-w-3xl mx-auto px-4 py-4 flex justify-between items-center">
           <div>
             <h1 className="text-lg sm:text-2xl font-semibold">
