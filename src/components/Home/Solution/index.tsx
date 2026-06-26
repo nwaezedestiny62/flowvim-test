@@ -3,49 +3,33 @@
 import React from "react";
 import Link from "next/link";
 import { Icon } from "@iconify/react";
-
-import { solutionData } from "@/app/api/data";
-
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination } from "swiper/modules";
-
 import { motion, Variants } from "framer-motion";
+import { useSiteContent } from "@/lib/useSiteContent";
 
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 
 const Solution: React.FC = () => {
-  // ✅ clean stagger animation
+  const { content } = useSiteContent();
+
+  // Use cards from admin, fallback to old data if needed
+  const cards = content?.solutionCards || [];
+
   const containerVariants: Variants = {
     hidden: {},
-    show: {
-      transition: {
-        staggerChildren: 0.15,
-      },
-    },
+    show: { transition: { staggerChildren: 0.15 } },
   };
 
   const itemVariants: Variants = {
-    hidden: {
-      opacity: 0,
-      y: 60,
-      scale: 0.97,
-    },
-    show: {
-      opacity: 1,
-      y: 0,
-      scale: 1,
-      transition: {
-        duration: 0.7,
-        ease: "easeOut",
-      },
-    },
+    hidden: { opacity: 0, y: 60, scale: 0.97 },
+    show: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.7, ease: "easeOut" } },
   };
 
   return (
     <section className="overflow-hidden py-14 lg:py-18 xl:py-22 bg-prim-light">
-
       <motion.div
         className="container mx-auto lg:max-w-(--breakpoint-xl) md:max-w-(--breakpoint-md) px-4 space-y-14"
         variants={containerVariants}
@@ -53,8 +37,7 @@ const Solution: React.FC = () => {
         whileInView="show"
         viewport={{ once: false, amount: 0.2 }}
       >
-
-        {/* HEADER */}
+        {/* HEADER - unchanged */}
         <motion.div
           variants={itemVariants}
           className="solution-content flex flex-col lg:flex-row justify-between items-start lg:items-end gap-4"
@@ -84,9 +67,8 @@ const Solution: React.FC = () => {
           </Link>
         </motion.div>
 
-        {/* SWIPER */}
+        {/* SWIPER - Cards only editable */}
         <motion.div variants={itemVariants} className="relative mt-10">
-
           <Swiper
             modules={[Navigation, Pagination]}
             spaceBetween={20}
@@ -95,10 +77,8 @@ const Solution: React.FC = () => {
             pagination={{ clickable: true }}
             className="solution-wrapper"
           >
-            {solutionData?.map((solution, index) => (
+            {cards.map((solution: any, index: number) => (
               <SwiperSlide key={index} className="!w-auto">
-
-                {/* CARD */}
                 <motion.div
                   variants={itemVariants}
                   className="w-[300px] solution-item bg-white shadow-xl p-5 rounded-xl border group hover:bg-prim transition-all duration-500 h-[400px] flex flex-col justify-between"
@@ -109,7 +89,7 @@ const Solution: React.FC = () => {
 
                   <div className="solution-icon border border-dark w-[70px] h-[70px] rounded-full mx-auto flex justify-center items-center prim-gradient transition-transform duration-500 group-hover:rotate-12">
                     <Icon
-                      icon={solution.icon}
+                      icon="mdi:briefcase"
                       width="32"
                       height="32"
                       className="group-hover:text-white transition-colors duration-500"
@@ -134,13 +114,10 @@ const Solution: React.FC = () => {
                     />
                   </Link>
                 </motion.div>
-
               </SwiperSlide>
             ))}
           </Swiper>
-
         </motion.div>
-
       </motion.div>
     </section>
   );

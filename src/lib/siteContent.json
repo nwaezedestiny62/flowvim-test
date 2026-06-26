@@ -1,0 +1,154 @@
+{
+  "hero": {
+    "title": "Bridging Strategy and Execution",
+    "buttonText": "Schedule a Consultation",
+    "quote": "We partner with Nigerian SMEs and growing enterprises to optimize operations, develop people, and deliver measurable performance improvements.",
+    "counter": "20",
+    "counterSuffix": "K+"
+  },
+  "solutionCards": [
+    {
+      "title": "Business Clubs",
+      "description": "Develop clear roadmaps and strategic frameworks that align your vision with executable."
+    },
+    {
+      "title": "Operations Ex",
+      "description": "Streamline processes, reduce waste, and build efficient systems that scale with your growth."
+    },
+    {
+      "title": "People Development",
+      "description": "Build high-performing teams through targeted training, leadership development and culture transformation."
+    }
+  ],
+  "about": {
+    "storyTitle": "Empowering Nigerian Businesses Through People, Processes, and Performance.",
+    "valueCards": [
+      {
+        "title": "Strategic Insightes",
+        "desc": "Turning vision into execution with practical, measurable strategies."
+      },
+      {
+        "title": "People-Centered Growth",
+        "desc": "Unlocking human potential through leadership."
+      },
+      {
+        "title": "Operational ",
+        "desc": "Building scalable systems that remove friction and boost output."
+      }
+    ],
+    "mission": "Empower SMEs with practical systems that deliver measurable growth.",
+    "vision": "Become Nigeria’s most trusted transformation consulting firm."
+  },
+  "videocard": {
+    "title": "Practical Management Consulting",
+    "subtitle": "Aligning People, Processes, and Performance for Sustainable Growth in Nigerian Businesses",
+    "videos": [
+      {
+        "id": "vu-4ozmTAb2f08Lu",
+        "title": "How Democracy Has Impacted Nigeria’s Business Environment",
+        "duration": "2:34"
+      },
+      {
+        "id": "usdVzuhi2mk",
+        "title": "Discussing Employee Engagement, Retention And Productivity",
+        "duration": "22:10"
+      },
+      {
+        "id": "T0YFh025__s",
+        "title": "Understand Your Organizational Vital Signs",
+        "duration": "14:30"
+      }
+    ]
+  },
+  "testimonials": {
+    "mainTitle": "Real Results from Real Businesses",
+    "rating": "4.9",
+    "reviewsCount": "50+",
+    "items": [
+      {
+        "text": "Flowvim helped us restructure our operations and build a strong performance culture. Within six months, productivity increased significantly and staff turnover dropped. Highly recommended.",
+        "name": "Michael Johnson",
+        "position": "CEO, NovaTech Solutions",
+        "image": "/images/testimonials/user.jpg"
+      },
+      {
+        "text": "Second testimonial text...",
+        "name": "Another Client",
+        "position": "Founder, Another Company",
+        "image": "/images/testimonials/user2.jpg"
+      }
+    ]
+  },
+  "faq": {
+    "mainTitle": "Frequently Asked Questions",
+    "subtitle": "Still Have Questions?",
+    "items": [
+      {
+        "question": "Why do businesses choose Flowvim for management consulting?",
+        "answer": "Businesses choose Flowvim because we focus on practical, results-driven solutions that bridge strategy and execution..."
+      },
+      {
+        "question": "What services does Flowvim offer?",
+        "answer": "We provide comprehensive management consulting services including HR Management Solutions, Process Optimization..."
+      },
+      {
+        "question": "How long does a typical consulting engagement last?",
+        "answer": "Project duration varies based on scope and complexity..."
+      }
+    ]
+  },
+  "blogs": {
+    "mainTitle": "Blog",
+    "description": "Explore our latest articles",
+    "items": [
+      {
+        "id": 1,
+        "title": "SME Growth in Nigeria",
+        "slug": "strategic-hr-management-sme-growth-nigeria",
+        "image": "https://picsum.photos/800/600",
+        "date": "12 Jun",
+        "category": "HR",
+        "author": "Flowvim Team",
+        "description": "Short description shown on blog list...",
+        "fullContent": "Write the full detailed blog post content here. You can put multiple paragraphs, key points, etc.",
+        "quote": "Everything that goes around comes back around",
+        "quoteAuthor": "Kevin Hooks"
+      },
+      {
+        "id": 2,
+        "title": "SME Growth in Nigeria",
+        "slug": "strategic-hr-management-sme-growth-nigeria",
+        "image": "https://picsum.photos/800/600",
+        "date": "12 Jun",
+        "category": "HR",
+        "author": "Flowvim Team",
+        "description": "Short description shown on blog list...",
+        "fullContent": "Write the full detailed blog post content here. You can put multiple paragraphs, key points, etc.",
+        "quote": "Everything that goes around comes back around",
+        "quoteAuthor": "Kevin Hooks"
+      }
+    ]
+  },
+  "products": [
+    {
+      "id": 1,
+      "slug": "premium-noise-cancelling-headphones",
+      "title": "Premium Noise-Cancelling Earpiece",
+      "price": "78000",
+      "image": "https://simsng.com/wp-content/uploads/2026/01/5BFG-SPG30005D20SUMEC20FIRMAN20GEN20SPG3000202.5KVA20231.jpg",
+      "images": [
+        "https://images.unsplash.com/photo-1505740420928-5e560c06d30e",
+        "https://images.unsplash.com/photo-1484704849700-f032a568e944"
+      ],
+      "category": "digital",
+      "description": "Sony WH-1000XM5 style • 30hr battery • Brand new with warranty",
+      "longDescription": "Experience studio-quality sound with industry-leading noise cancellation...",
+      "features": [
+        "30hr Battery Life",
+        "Active Noise Cancellation",
+        "Touch Controls"
+      ],
+      "inStock": true
+    }
+  ]
+}
